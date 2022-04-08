@@ -7,6 +7,7 @@ android {
     compileSdk 31
 
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "ru.netology.nmedia"
         minSdk 23
         targetSdk 31

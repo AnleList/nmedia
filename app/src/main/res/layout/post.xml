@@ -18,10 +18,11 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/author"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="parent"
         android:singleLine="true"
+        android:ellipsize="end"
         android:padding="8dp"
         android:textColor="#5D00F5"
         app:layout_constraintTop_toTopOf="@+id/avatar"
@@ -32,8 +33,11 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/published"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:padding="8dp"
         android:text="@string/date"
         app:layout_constraintBottom_toBottomOf="@id/avatar"

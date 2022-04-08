@@ -2,4 +2,6 @@
 <resources>
     <string name="app_name">НМедиа</string>
     <string name="hallo">НМедиа! Здравствуйте!</string>
+    <string name="name">Нетология. Университет интернет-профессий</string>
+    <string name="date">21 мая в 18:36</string>
 </resources>

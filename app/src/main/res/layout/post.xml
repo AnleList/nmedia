@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/avatar"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:contentDescription="@string/avatar"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,6 @@
         android:id="@+id/author"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
         android:singleLine="true"
         android:ellipsize="end"
         android:padding="8dp"
@@ -28,14 +27,15 @@
         app:layout_constraintTop_toTopOf="@+id/avatar"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintBottom_toTopOf="@id/published"
-        android:layout_marginStart="16dp"
+        app:layout_constraintEnd_toStartOf="@id/menuButton"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
         tools:text="@sample/posts.json/data/author" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/published"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
         android:singleLine="true"
         android:ellipsize="end"
         android:padding="8dp"
@@ -43,6 +43,17 @@
         app:layout_constraintBottom_toBottomOf="@id/avatar"
         app:layout_constraintStart_toStartOf="@id/author"
         app:layout_constraintStart_toEndOf="@id/avatar"
+        app:layout_constraintEnd_toEndOf="@id/author"
         app:layout_constraintTop_toBottomOf="@id/author"/>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/menuButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@android:color/transparent"
+        android:src="@sample/posts.json/data/menu"
+/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

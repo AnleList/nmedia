@@ -10,7 +10,7 @@ import ru.netology.nmedia.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.post)
+        setContentView(R.layout.activity_main)
 
 //        heart.setOnClickListener {
 //            (it as ImageButton).setImageResource(R.drawable.ic_red_heart_24)
@@ -38,23 +38,38 @@ class MainActivity : AppCompatActivity() {
                     "8 (800) 301-39-69\n" +
                     "Варшавское шоссе, д. 1, стр. 6, 1 этаж, офис 105А, Москва",
             published = "21 мая в 18:36",
-            likedByMe = false
+            likedByMe = false,
+            likes = 300,
+            sharedByMe = false,
+            shared = 700,
         )
         with(binding) {
             author.text = post.author
-//            avatar.setImageResource(R.drawable.ic_launcher_foreground)
             published.text = post.published
             about.text = post.content
+            likes.text = post.likes.toString()
+            shared.text = post.shared.toString()
+            views.text = "1327"
+
             if (post.likedByMe) {
                 heart?.setImageResource(R.drawable.ic_red_heart_24)
             }
+            if (post.sharedByMe) share?.setImageResource(R.drawable.ic_shared_24)
 
             heart?.setOnClickListener {
                 post.likedByMe = !post.likedByMe
+                post.likes = if (post.likedByMe) post.likes + 1 else post.likes - 1
                 heart.setImageResource(
                     if (post.likedByMe) R.drawable.ic_red_heart_24
                 else R.drawable.heart_empty
                 )
+                likes.text = post.likes.toString()
+            }
+
+            share?.setOnClickListener {
+                post.shared += 1
+                shared.text = post.shared.toString()
+                share.setImageResource(R.drawable.ic_shared_24)
             }
         }
     }

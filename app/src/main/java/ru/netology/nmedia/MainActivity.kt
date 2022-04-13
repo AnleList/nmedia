@@ -39,17 +39,17 @@ class MainActivity : AppCompatActivity() {
                     "Варшавское шоссе, д. 1, стр. 6, 1 этаж, офис 105А, Москва",
             published = "21 мая в 18:36",
             likedByMe = false,
-            likes = 300,
+            likes = 9999,
             sharedByMe = false,
-            shared = 700,
+            shared = 9097,
         )
         with(binding) {
             author.text = post.author
             published.text = post.published
             about.text = post.content
-            likes.text = post.likes.toString()
-            shared.text = post.shared.toString()
-            views.text = "1327"
+            likes.text = valueToStringForShowing(post.likes)
+            shared.text = valueToStringForShowing(post.shared)
+            views.text = valueToStringForShowing(2999999)
 
             if (post.likedByMe) {
                 heart?.setImageResource(R.drawable.ic_red_heart_24)
@@ -63,12 +63,12 @@ class MainActivity : AppCompatActivity() {
                     if (post.likedByMe) R.drawable.ic_red_heart_24
                 else R.drawable.heart_empty
                 )
-                likes.text = post.likes.toString()
+                likes.text = valueToStringForShowing(post.likes)
             }
 
             share?.setOnClickListener {
                 post.shared += 1
-                shared.text = post.shared.toString()
+                shared.text = valueToStringForShowing(post.shared)
                 share.setImageResource(R.drawable.ic_shared_24)
             }
         }

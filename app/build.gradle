@@ -1,12 +1,14 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android-extensions'
 }
 
 android {
     compileSdk 31
 
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "ru.netology.nmedia"
         minSdk 23
         targetSdk 31
@@ -15,6 +17,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    buildFeatures.viewBinding = true
 
     buildTypes {
         release {

@@ -25,9 +25,9 @@ class InMemoryPostRepository: PostRepository {
                     "Варшавское шоссе, д. 1, стр. 6, 1 этаж, офис 105А, Москва",
             published = "21 мая в 18:36",
             likedByMe = false,
-            likes = 9999,
+            likes = 99,
             sharedByMe = false,
-            shared = 9097,
+            shared = 997,
         )
     )
 
@@ -36,9 +36,20 @@ class InMemoryPostRepository: PostRepository {
             "Data value should not be null"
         }
         val likedPost = currentPost.copy(
-            likedByMe = !currentPost.likedByMe,
-            likes = if (currentPost.likedByMe) currentPost.likes + 1 else currentPost.likes - 1
+            likes = if (!currentPost.likedByMe) currentPost.likes + 1 else currentPost.likes - 1,
+            likedByMe = !currentPost.likedByMe
         )
         data.value = likedPost
+    }
+
+    override fun share() {
+        val currentPost = checkNotNull(data.value) {
+            "Data value should not be null"
+        }
+        val sharedPost = currentPost.copy(
+            sharedByMe = true,
+            shared = currentPost.shared + 1
+        )
+        data.value = sharedPost
     }
 }

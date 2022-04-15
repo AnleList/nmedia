@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:padding="16dp">
 
     <ImageView
@@ -15,7 +14,7 @@
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_launcher_foreground" />
+        android:src ="@drawable/ic_launcher_foreground" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/author"
@@ -31,7 +30,7 @@
         app:layout_constraintEnd_toStartOf="@id/menuButton"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toTopOf="@+id/avatar"
-        tools:text="@string/name" />
+        android:text="@sample/posts.json/data/author" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/published"
@@ -45,7 +44,7 @@
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintStart_toStartOf="@id/author"
         app:layout_constraintTop_toBottomOf="@id/author"
-        tools:text="@string/date" />
+        android:text="@string/date" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/menuButton"
@@ -73,13 +72,15 @@
         android:padding="8dp"
         app:layout_constraintTop_toBottomOf="@id/barrier"
         app:layout_constraintBottom_toTopOf="@id/barrierUnderAbout"
-        tools:text="@string/about" />
+        android:text="@string/about" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/heart"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:background="@android:color/transparent"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:src="@drawable/heart_empty"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -90,11 +91,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:ellipsize="end"
-        app:layout_constraintTop_toTopOf="@id/heart"
         app:layout_constraintBottom_toBottomOf="@id/heart"
         app:layout_constraintStart_toEndOf="@id/heart"
-        tools:text="100" />
-
+        app:layout_constraintTop_toTopOf="@id/heart"
+        android:text="100" />
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/share"
         android:src="@drawable/ic_share_24"
@@ -102,29 +102,16 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintTop_toTopOf="@id/heart"
-        app:layout_constraintBottom_toBottomOf="@id/heart"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/likes" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/shared"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ellipsize="end"
-        app:layout_constraintTop_toTopOf="@id/heart"
-        app:layout_constraintBottom_toBottomOf="@id/heart"
-        app:layout_constraintStart_toEndOf="@id/share"
-        tools:text="100" />
-
-    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/views"
-        tools:text="500000"
+        android:text="500000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/heart"
-        app:layout_constraintBottom_toBottomOf="@id/heart" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/eye"
@@ -132,8 +119,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintTop_toTopOf="@id/heart"
-        app:layout_constraintBottom_toBottomOf="@id/heart"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/views" />
 
     <androidx.constraintlayout.widget.Barrier

@@ -95,7 +95,7 @@
             app:layout_constraintBottom_toBottomOf="@id/heart"
             app:layout_constraintStart_toEndOf="@id/heart"
             app:layout_constraintTop_toTopOf="@id/heart"
-            android:text="100" />
+            tools:text="100" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/share"
@@ -108,8 +108,19 @@
             app:layout_constraintStart_toEndOf="@id/likes" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/shared"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            app:layout_constraintTop_toTopOf="@id/heart"
+            app:layout_constraintBottom_toBottomOf="@id/heart"
+            app:layout_constraintStart_toEndOf="@id/share"
+            tools:text="100" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/views"
-            android:text="500000"
+            tools:text="500000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

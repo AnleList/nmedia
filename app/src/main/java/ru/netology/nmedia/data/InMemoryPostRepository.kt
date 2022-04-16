@@ -25,7 +25,7 @@ class InMemoryPostRepository: PostRepository {
                     "Варшавское шоссе, д. 1, стр. 6, 1 этаж, офис 105А, Москва",
             published = "21 мая 2020",
             likedByMe = true,
-            likes = 1099,
+            likes = 1100,
             sharedByMe = false,
             shared = 999997,
         ),

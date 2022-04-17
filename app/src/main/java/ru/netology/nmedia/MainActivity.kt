@@ -5,10 +5,12 @@ import android.os.Bundle
 import ru.netology.nmedia.data.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.view_models.PostViewModel
+import androidx.activity.viewModels
+
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel = PostViewModel()
+    private val viewModel by viewModels<PostViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

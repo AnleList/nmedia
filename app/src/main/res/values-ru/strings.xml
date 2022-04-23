@@ -19,5 +19,8 @@
 http://netolo.gy/fEU
 8 (800) 301-39-69
 Варшавское шоссе, д. 1, стр. 6, 1 этаж, офис 105А, Москва</string>
+    <string name="removeRes">Удалить</string>
+    <string name="aboutHint">напиши о себе</string>
+    <string name="saveButtonDescription">кнопка сохранить</string>
 
 </resources>

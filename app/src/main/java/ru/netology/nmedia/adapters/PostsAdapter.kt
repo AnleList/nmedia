@@ -63,7 +63,7 @@ internal class PostsAdapter(
             {
                 avatar.setImageResource(
                     when (post.id) {
-                        1L -> R.drawable.ic_launcher_foreground
+                        3L -> R.drawable.ic_launcher_foreground
                         2L -> R.drawable.ic_skillbox
                         else -> R.drawable.ic_baseline_tag_faces_24
                     }
@@ -74,7 +74,7 @@ internal class PostsAdapter(
                 shared.text = valueToStringForShowing(post.shared)
                 views.text = valueToStringForShowing(
                     when (post.id) {
-                        1L -> 2999999
+                        3L -> 2999999
                         2L -> 999
                         else -> 0
                     }

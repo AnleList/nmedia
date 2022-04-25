@@ -7,6 +7,7 @@ import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.view_models.PostViewModel
 import androidx.activity.viewModels
 import ru.netology.nmedia.util.hideKeyboard
+import ru.netology.nmedia.util.showKeyboard
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,17 +25,33 @@ class MainActivity : AppCompatActivity() {
         viewModel.data.observe(this) {posts ->
             adapter.submitList(posts)
         }
+
         binding.saveButton.setOnClickListener{
             with(binding.contentEditText) {
                 val content = text.toString()
                 viewModel.onSaveButtonClicked(content)
-
+                
                 clearFocus()
                 hideKeyboard()
             }
         }
+
         viewModel.currentPost.observe(this) {currentPost ->
-            binding.contentEditText.setText(currentPost?.content)
+            with(binding.contentEditText) {
+                val content = currentPost?.content
+                setText(content)
+//                requestFocus()
+//                showKeyboard()
+
+                if (currentPost != null) {
+                    requestFocus()
+                    showKeyboard()
+                }
+//                else {
+//                    clearFocus()
+//                    hideKeyboard()
+//                }
+            }
         }
     }
 

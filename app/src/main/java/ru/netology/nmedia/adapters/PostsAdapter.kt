@@ -1,6 +1,7 @@
 package ru.netology.nmedia.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.annotation.DrawableRes
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.databinding.PostCardLayoutBinding
+import ru.netology.nmedia.util.*
 import ru.netology.nmedia.valueToStringForShowing
 
 internal class PostsAdapter(
@@ -40,6 +42,10 @@ internal class PostsAdapter(
                     when (menuItem.itemId) {
                         R.id.removeItem -> {
                             listener.onRemoveClicked(post)
+                            true
+                        }
+                        R.id.editItem -> {
+                            listener.onEditClicked(post)
                             true
                         }
                         else -> false

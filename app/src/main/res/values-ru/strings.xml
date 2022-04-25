@@ -22,5 +22,7 @@ http://netolo.gy/fEU
     <string name="removeRes">Удалить</string>
     <string name="aboutHint">напиши о себе</string>
     <string name="saveButtonDescription">кнопка сохранить</string>
+    <string name="editButtonDescription">кнопка изменить</string>
+    <string name="editRes">Изменить</string>
 
 </resources>

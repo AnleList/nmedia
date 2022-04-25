@@ -20,13 +20,15 @@ class PostViewModel: ViewModel(), PostInteractionListener {
     fun onSaveButtonClicked(content: String) {
         if (content.isBlank()) return
         val sdf = SimpleDateFormat("dd/MM/yyyy")
-        val newPost = Post(
+        val postToAddToContentEditText = currentPost.value?.copy(
+            content = content
+        ) ?: Post(
             id = PostRepository.NEW_POST_ID,
             author = "New author",
             content = content,
             published = (sdf.format(Date())).toString()
         )
-        repository.save(newPost)
+        repository.save(postToAddToContentEditText)
         currentPost.value = null
     }
 
@@ -44,4 +46,8 @@ class PostViewModel: ViewModel(), PostInteractionListener {
 
     override fun onRemoveClicked(post: Post) =
         repository.removeById(post.id)
+
+    override fun onEditClicked(post: Post) {
+        currentPost.value = post
+    }
 }

@@ -1,14 +1,17 @@
 package ru.netology.nmedia
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.adapters.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.view_models.PostViewModel
-import androidx.activity.viewModels
 import ru.netology.nmedia.util.hideKeyboard
 import ru.netology.nmedia.util.showKeyboard
-
+import ru.netology.nmedia.view_models.PostViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,29 +33,26 @@ class MainActivity : AppCompatActivity() {
             with(binding.contentEditText) {
                 val content = text.toString()
                 viewModel.onSaveButtonClicked(content)
-                
-                clearFocus()
-                hideKeyboard()
             }
         }
 
         viewModel.currentPost.observe(this) {currentPost ->
             with(binding.contentEditText) {
-                val content = currentPost?.content
-                setText(content)
-//                requestFocus()
-//                showKeyboard()
-
-                if (currentPost != null) {
+                setText(currentPost?.content)
+                if (currentPost?.content != null) {
                     requestFocus()
+                    setSelection(this.text.length)
+                    window.setSoftInputMode(
+                        WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+                    )
                     showKeyboard()
+                } else {
+                    window.setSoftInputMode(
+                        WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+                    )
+                    requestFocus()
                 }
-//                else {
-//                    clearFocus()
-//                    hideKeyboard()
-//                }
             }
         }
     }
-
 }

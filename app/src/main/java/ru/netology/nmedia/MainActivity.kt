@@ -3,10 +3,12 @@ package ru.netology.nmedia
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import ru.netology.nmedia.adapters.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.util.hideKeyboard
@@ -37,6 +39,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.currentPost.observe(this) {currentPost ->
+//            if (currentPost?.content != null) {
+//                group.visibility = View.VISIBLE
+//            } else {
+//                group.visibility = View.GONE
+//                group.visibility = View.INVISIBLE
+//            }
             with(binding.contentEditText) {
                 setText(currentPost?.content)
                 if (currentPost?.content != null) {
@@ -46,10 +54,15 @@ class MainActivity : AppCompatActivity() {
                         WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
                     )
                     showKeyboard()
+                    binding.textPreview.text = currentPost.content
+                    group.visibility = View.VISIBLE
                 } else {
+                    group.visibility = View.INVISIBLE
+                    group.visibility = View.GONE
                     window.setSoftInputMode(
                         WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
                     )
+                    hideKeyboard()
                     requestFocus()
                 }
             }

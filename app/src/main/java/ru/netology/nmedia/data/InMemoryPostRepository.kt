@@ -89,7 +89,6 @@ class InMemoryPostRepository: PostRepository {
 
     override fun removeById(id: Long) {
         data.value = posts.filter { it.id != id }
-        data.value = posts
     }
 
     override fun save(post: Post) {
@@ -100,7 +99,8 @@ class InMemoryPostRepository: PostRepository {
 
     private fun update(post: Post) {
         data.value = posts.map {
-            if (it.id == post.id) post else it
+            if (it.id == post.id) post
+            else it
         }
     }
 

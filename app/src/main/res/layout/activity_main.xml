@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:constraint_referenced_ids="textPreview, UnDoButton" />
+        app:constraint_referenced_ids="textPreview, un_do_button" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textPreview"
@@ -40,15 +40,15 @@
         android:ellipsize="end"
         android:padding="4dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/UnDoButton"
-        app:layout_constraintTop_toTopOf="@id/UnDoButton"
+        app:layout_constraintEnd_toStartOf="@id/un_do_button"
+        app:layout_constraintTop_toTopOf="@id/un_do_button"
         app:layout_constraintBottom_toTopOf="@id/contentEditText"
         android:textColor="@color/white"
         android:background="#737373"
         tools:text="@string/about" />
 
     <ImageButton
-        android:id="@+id/UnDoButton"
+        android:id="@+id/un_do_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_spacing"

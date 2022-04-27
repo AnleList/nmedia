@@ -1,11 +1,8 @@
 package ru.netology.nmedia
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -38,13 +35,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        binding.unDoButton.setOnClickListener{
+            with(binding.contentEditText) {
+                viewModel.onUnDoButtonClicked()
+            }
+        }
+
         viewModel.currentPost.observe(this) {currentPost ->
-//            if (currentPost?.content != null) {
-//                group.visibility = View.VISIBLE
-//            } else {
-//                group.visibility = View.GONE
-//                group.visibility = View.INVISIBLE
-//            }
             with(binding.contentEditText) {
                 setText(currentPost?.content)
                 if (currentPost?.content != null) {

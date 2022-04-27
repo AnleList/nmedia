@@ -32,12 +32,6 @@ class PostViewModel: ViewModel(), PostInteractionListener {
         currentPost.value = null
     }
 
-    fun likeById(post: Post) = repository.likeById(post.id)
-
-    fun shareById(post: Post) = repository.shareBiId(post.id)
-
-    fun removeById(post: Post) = repository.removeById(post.id)
-
     override fun onHeartClicked(post: Post) =
         repository.likeById(post.id)
 
@@ -49,5 +43,9 @@ class PostViewModel: ViewModel(), PostInteractionListener {
 
     override fun onEditClicked(post: Post) {
         currentPost.value = post
+    }
+
+    override fun onUnDoButtonClicked() {
+        currentPost.value = null
     }
 }

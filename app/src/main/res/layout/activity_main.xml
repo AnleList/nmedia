@@ -24,7 +24,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="contentEditText, saveButton"/>
+        app:constraint_referenced_ids="textPreview, saveButton"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="contentEditText, UnDoButton" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textPreview"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:ellipsize="end"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:padding="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/UnDoButton"
+        app:layout_constraintTop_toTopOf="@id/UnDoButton"
+        app:layout_constraintBottom_toBottomOf="@id/UnDoButton"
+        android:textColor="@color/white"
+        android:background="#737373"
+        tools:text="@string/about" />
+
+    <ImageButton
+        android:id="@+id/UnDoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_spacing"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/saveButtonDescription"
+        app:layout_constraintTop_toTopOf="@id/toolsTopBarrier"
+        app:layout_constraintBottom_toTopOf="@id/saveButton"
+        app:layout_constraintEnd_toEndOf="@id/saveButton"
+        app:layout_constraintStart_toStartOf="@id/saveButton"
+        app:srcCompat= "@drawable/ic_baseline_cancel_schedule_send_48"/>
 
     <EditText
         android:id="@+id/contentEditText"
@@ -35,10 +71,10 @@
         android:background="@android:color/transparent"
         android:padding="@dimen/common_spacing"
         android:importantForAutofill="no"
-        app:layout_constraintTop_toTopOf="@id/toolsTopBarrier"
+        app:layout_constraintTop_toBottomOf="@id/textPreview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/saveButton"
+        app:layout_constraintEnd_toStartOf="@id/saveButton"
         android:focusable="true"/>
 
     <ImageButton

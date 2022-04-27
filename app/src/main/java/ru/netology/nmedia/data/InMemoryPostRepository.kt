@@ -97,10 +97,10 @@ class InMemoryPostRepository: PostRepository {
         else update(post)
     }
 
-    private fun update(post: Post) {
-        data.value = posts.map {
-            if (it.id == post.id) post
-            else it
+    private fun update(post: Post) { //сюда передаётся наш post целиком вместе со старым id
+        data.value = posts.map { //map проходится по всему списку
+            if (it.id == post.id) post //не находит в нём редактируемого поста, т к он уже удалён
+            else it //и на каждой итерации оставляет всё без изменений
         }
     }
 

@@ -74,12 +74,12 @@
             app:layout_constraintBottom_toTopOf="@id/barrierUnderAbout"
             tools:text="@string/about" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/heart"
-            android:layout_width="24dp"
+            android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/heart_empty"
+            android:button="@drawable/heart_empty"
+            android:contentDescription="100500"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

@@ -24,5 +24,6 @@ http://netolo.gy/fEU
     <string name="saveButtonDescription">кнопка сохранить</string>
     <string name="editButtonDescription">кнопка изменить</string>
     <string name="editRes">Изменить</string>
+    <string name="likes">Лайки</string>
 
 </resources>

@@ -1,17 +1,14 @@
 package ru.netology.nmedia.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.databinding.PostCardLayoutBinding
-import ru.netology.nmedia.util.*
 import ru.netology.nmedia.valueToStringForShowing
 
 internal class PostsAdapter(
@@ -61,6 +58,7 @@ internal class PostsAdapter(
             binding.share.setOnClickListener {
                 listener.onShareClicked(post)
             }
+            binding.menuButton.setOnClickListener { popupMenu.show() }
         }
 
         fun bind(post: Post) {
@@ -77,7 +75,6 @@ internal class PostsAdapter(
                 author.text = post.author
                 published.text = post.published
                 about.text = post.content
-                shared.text = valueToStringForShowing(post.shared)
                 views.text = valueToStringForShowing(
                     when (post.id) {
                         3L -> 2999999
@@ -85,20 +82,12 @@ internal class PostsAdapter(
                         else -> 0
                     }
                 )
-                likes.text = valueToStringForShowing(post.likes)
-                heart.setImageResource(heartChooser(post.likedByMe))
-                share.setImageResource(
-                    if (post.sharedByMe) R.drawable.ic_shared_24
-                    else R.drawable.ic_share_24
-                )
-                menuButton.setOnClickListener { popupMenu.show() }
+                heart.text = valueToStringForShowing(post.likes)
+                heart.isChecked = post.likedByMe
+                share.text = valueToStringForShowing(post.shared)
+                share.isChecked = post.sharedByMe
             }
         }
-
-        @DrawableRes
-        private fun heartChooser (liked: Boolean) =
-            if (liked) R.drawable.ic_red_heart_24
-            else R.drawable.heart_empty
     }
 
     private object DiffCallback : DiffUtil.ItemCallback<Post>() {
@@ -108,6 +97,5 @@ internal class PostsAdapter(
 
         override fun areContentsTheSame(oldItem: Post, newItem: Post) =
             oldItem == newItem
-
     }
 }

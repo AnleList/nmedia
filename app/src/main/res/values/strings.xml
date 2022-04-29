@@ -24,4 +24,5 @@ Varshavskoe shosse, 1, p. 6, 1st floor, office 105A, Moscow</string>
     <string name="saveButtonDescription">save Button</string>
     <string name="editButtonDescription">edit Button</string>
     <string name="editRes">Edit</string>
+    <string name="likes">Liks</string>
 </resources>

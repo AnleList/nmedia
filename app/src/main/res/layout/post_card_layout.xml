@@ -49,7 +49,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/menuButton"
             style="@style/Widget.AppTheme.ShareButton"
-            android:checkable="true"
+            android:checkable="false"
             android:layout_width="48dp"
             android:layout_height="48dp"
             app:icon="@drawable/menu"

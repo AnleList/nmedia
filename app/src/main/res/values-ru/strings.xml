@@ -25,5 +25,6 @@ http://netolo.gy/fEU
     <string name="editButtonDescription">кнопка изменить</string>
     <string name="editRes">Изменить</string>
     <string name="likes">Лайки</string>
+    <string name="chooser_share_post">Поделиться</string>
 
 </resources>

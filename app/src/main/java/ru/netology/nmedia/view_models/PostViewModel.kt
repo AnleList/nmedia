@@ -6,6 +6,7 @@ import ru.netology.nmedia.adapters.PostInteractionListener
 import ru.netology.nmedia.data.InMemoryPostRepository
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostRepository
+import ru.netology.nmedia.util.SingleLiveEvent
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -15,6 +16,7 @@ class PostViewModel: ViewModel(), PostInteractionListener {
 
     val data = repository.getAll()
 
+    val sharePostContent = SingleLiveEvent<String>()
     val currentPost = MutableLiveData<Post?>(null)
 
     fun onSaveButtonClicked(content: String) {
@@ -35,8 +37,10 @@ class PostViewModel: ViewModel(), PostInteractionListener {
     override fun onHeartClicked(post: Post) =
         repository.likeById(post.id)
 
-    override fun onShareClicked(post: Post) =
+    override fun onShareClicked(post: Post) {
+        sharePostContent.value = post.content
         repository.shareBiId(post.id)
+    }
 
     override fun onRemoveClicked(post: Post) =
         repository.removeById(post.id)

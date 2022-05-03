@@ -1,11 +1,13 @@
-package ru.netology.nmedia
+package ru.netology.nmedia.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import ru.netology.nmedia.R
 import ru.netology.nmedia.adapters.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.util.hideKeyboard
@@ -36,9 +38,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.unDoButton.setOnClickListener{
-            with(binding.contentEditText) {
                 viewModel.onUnDoButtonClicked()
-            }
         }
 
         viewModel.currentPost.observe(this) {currentPost ->
@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
                     binding.textPreview.text = currentPost.content
                     group.visibility = View.VISIBLE
                 } else {
-                    group.visibility = View.INVISIBLE
                     group.visibility = View.GONE
                     window.setSoftInputMode(
                         WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
@@ -63,6 +62,18 @@ class MainActivity : AppCompatActivity() {
                     requestFocus()
                 }
             }
+        }
+        viewModel.sharePostContent.observe(this) { postContent ->
+            val intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, postContent)
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(
+                intent, getString(R.string.chooser_share_post)
+            )
+            startActivity(shareIntent)
         }
     }
 }

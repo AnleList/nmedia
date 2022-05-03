@@ -17,9 +17,10 @@ class PostViewModel: ViewModel(), PostInteractionListener {
     val data = repository.getAll()
 
     val sharePostContent = SingleLiveEvent<String>()
-    val currentPost = MutableLiveData<Post?>(null)
+    val navToPostContentEvent = SingleLiveEvent<Unit>()
+    private val currentPost = MutableLiveData<Post?>(null)
 
-    fun onSaveButtonClicked(content: String) {
+    fun onSaveClicked(content: String) {
         if (content.isBlank()) return
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         val postToAddToContentEditText = currentPost.value?.copy(
@@ -49,7 +50,11 @@ class PostViewModel: ViewModel(), PostInteractionListener {
         currentPost.value = post
     }
 
-    override fun onUnDoButtonClicked() {
+    override fun onUnDoClicked() {
         currentPost.value = null
+    }
+
+    override fun onAddClicked() {
+      navToPostContentEvent.call()
     }
 }

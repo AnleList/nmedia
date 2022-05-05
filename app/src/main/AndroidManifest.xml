@@ -21,7 +21,9 @@
 
         <activity
             android:name=".activities.PostContentActivity"
-            android:exported="false"/>
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
     </application>
 
 </manifest>

@@ -4,18 +4,36 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.view.View
+import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.databinding.PostContentActivityBinding
+import ru.netology.nmedia.util.hideKeyboard
+import ru.netology.nmedia.util.showKeyboard
+import ru.netology.nmedia.view_models.PostViewModel
 
 class PostContentActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+
+    private val viewModel by viewModels<PostViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val binding = PostContentActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.edit.requestFocus()
+
+        viewModel.currentPost.observe(this) {currentPost ->
+            with(binding.edit) {
+                setText(currentPost?.content)
+                if (currentPost?.content != null) {
+                    setSelection(this.text.length)
+                }
+            }
+        }
+
         binding.ok.setOnClickListener {
             val intent = Intent()
             val text = binding.edit.text
@@ -32,7 +50,7 @@ class PostContentActivity : AppCompatActivity() {
 
     object ResultContract : ActivityResultContract<Unit, String?>() {
 
-        override fun createIntent(context: Context, input: Unit?): Intent =
+        override fun createIntent(context: Context, input: Unit): Intent =
             Intent(context, PostContentActivity::class.java)
 
         override fun parseResult(resultCode: Int, intent: Intent?): String? =
@@ -40,7 +58,6 @@ class PostContentActivity : AppCompatActivity() {
                 intent?.getStringExtra(RESULT_KEY)
             } else null
     }
-
     private companion object {
         private const val RESULT_KEY = "postNewContent"
     }

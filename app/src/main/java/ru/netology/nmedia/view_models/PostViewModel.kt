@@ -18,7 +18,7 @@ class PostViewModel: ViewModel(), PostInteractionListener {
 
     val sharePostContent = SingleLiveEvent<String>()
     val navToPostContentEvent = SingleLiveEvent<Unit>()
-    private val currentPost = MutableLiveData<Post?>(null)
+    val currentPost = MutableLiveData<Post?>(null)
 
     fun onSaveClicked(content: String) {
         if (content.isBlank()) return

@@ -4,45 +4,57 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.text.Selection.setSelection
 import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.databinding.PostContentActivityBinding
-import ru.netology.nmedia.util.hideKeyboard
 import ru.netology.nmedia.util.showKeyboard
-import ru.netology.nmedia.view_models.PostViewModel
 
 class PostContentActivity : AppCompatActivity() {
-
-    private val viewModel by viewModels<PostViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val binding = PostContentActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.edit.requestFocus()
 
-        viewModel.currentPost.observe(this) {currentPost ->
-            with(binding.edit) {
-                setText(currentPost?.content)
-                if (currentPost?.content != null) {
-                    setSelection(this.text.length)
-                }
-            }
+        val text: String? =
+            intent.getSerializableExtra("TEXT") as String?
+        with(binding.edit) {
+            setText(text)
+//            requestFocus()
+            setSelection(binding.edit.text.length)
+//            window.setSoftInputMode(
+//                        WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+//            )
+            showKeyboard()
         }
-
+//
+//        binding.ok.setOnClickListener {
+//            val intent = Intent()
+//            val text = binding.edit.text
+//            if (text.isNullOrBlank()) {
+//                setResult(Activity.RESULT_CANCELED, intent)
+//            } else {
+//                val content = text.toString()
+//                intent.putExtra(RESULT_KEY, content)
+//                setResult(Activity.RESULT_OK, intent)
+//            }
+//            finish()
+//        }
         binding.ok.setOnClickListener {
-            val intent = Intent()
+            val answerIntent = Intent()
             val text = binding.edit.text
             if (text.isNullOrBlank()) {
-                setResult(Activity.RESULT_CANCELED, intent)
+                setResult(RESULT_CANCELED, answerIntent)
             } else {
                 val content = text.toString()
-                intent.putExtra(RESULT_KEY, content)
-                setResult(Activity.RESULT_OK, intent)
+                answerIntent.putExtra(
+                    "ru.netology.nmedia.PostContentActivity.THIEF",
+                    content
+                )
+                setResult(RESULT_OK, answerIntent)
             }
             finish()
         }

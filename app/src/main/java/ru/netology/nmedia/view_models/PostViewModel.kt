@@ -17,8 +17,8 @@ class PostViewModel: ViewModel(), PostInteractionListener {
     val data = repository.getAll()
 
     val sharePostContent = SingleLiveEvent<String>()
-    val navToPostContentEvent = SingleLiveEvent<Unit>()
-    val currentPost = MutableLiveData<Post?>(null)
+    val navToPostContentEvent = SingleLiveEvent<String>()
+    private val currentPost = MutableLiveData<Post?>(null)
 
     fun onSaveClicked(content: String) {
         if (content.isBlank()) return
@@ -47,6 +47,7 @@ class PostViewModel: ViewModel(), PostInteractionListener {
         repository.removeById(post.id)
 
     override fun onEditClicked(post: Post) {
+        navToPostContentEvent.value = post.content
         currentPost.value = post
     }
 

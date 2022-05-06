@@ -6,13 +6,13 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
+import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapters.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.util.FloatingActionButton
 import ru.netology.nmedia.view_models.PostViewModel
 
 
@@ -48,32 +48,40 @@ class MainActivity : AppCompatActivity() {
             )
             startActivity(shareIntent)
         }
-//
-//        val postContentActivityLauncher = registerForActivityResult(
-//            PostContentActivity.ResultContract
-//        ) { postContent ->
-//            postContent ?: return@registerForActivityResult
-//            viewModel.onSaveClicked(postContent)
-//        }
+
+        val postContentActivityLauncher = registerForActivityResult(
+            PostContentActivity.ResultContract
+        ) { postContent ->
+            postContent ?: return@registerForActivityResult
+            viewModel.onSaveClicked(postContent)
+        }
 
         viewModel.navToPostContentEvent.observe(this) { postContent ->
-            val intent = Intent(this@MainActivity, PostContentActivity::class.java)
-            intent.putExtra("TEXT", postContent)
-            startActivityForResult(intent, 0)
-//            postContentActivityLauncher.launch()
+            val intentToEdit = Intent(
+                this@MainActivity,
+                PostContentActivity::class.java
+            )
+            intentToEdit.putExtra(
+                "ru.netology.nmedia.PostContentActivity.TEXT_TO_EDIT",
+                postContent
+            )
+//            startActivityForResult(intentToEdit, 0)
+//            startActivity(intentToEdit)
+            postContentActivityLauncher.launch(postContent)
+
         }
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 0) {
-            if (resultCode == Activity.RESULT_OK) {
-                val postContent = data?.getStringExtra(
-                    "ru.netology.nmedia.PostContentActivity.THIEF"
-                )
-                if (postContent != null) {
-                    viewModel.onSaveClicked(postContent)
-                }
-            }
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == 0) {
+//            if (resultCode == Activity.RESULT_OK) {
+//                val postContent = data?.getStringExtra(
+//                    "ru.netology.nmedia.PostContentActivity.answerIntent"
+//                )
+//                if (postContent != null) {
+//                    viewModel.onSaveClicked(postContent)
+//                }
+//            }
+//        }
+//    }
 }

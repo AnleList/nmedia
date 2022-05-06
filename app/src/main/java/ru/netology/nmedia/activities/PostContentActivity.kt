@@ -20,7 +20,7 @@ class PostContentActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val text: String? =
-            intent.getSerializableExtra("TEXT") as String?
+            intent.getStringExtra("ru.netology.nmedia.PostContentActivity.TEXT_TO_EDIT")
         with(binding.edit) {
             setText(text)
             requestFocus()
@@ -30,19 +30,7 @@ class PostContentActivity : AppCompatActivity() {
 //            )
             showKeyboard()
         }
-//
-//        binding.ok.setOnClickListener {
-//            val intent = Intent()
-//            val text = binding.edit.text
-//            if (text.isNullOrBlank()) {
-//                setResult(Activity.RESULT_CANCELED, intent)
-//            } else {
-//                val content = text.toString()
-//                intent.putExtra(RESULT_KEY, content)
-//                setResult(Activity.RESULT_OK, intent)
-//            }
-//            finish()
-//        }
+
         binding.ok.setOnClickListener {
             val answerIntent = Intent()
             val text = binding.edit.text
@@ -51,7 +39,7 @@ class PostContentActivity : AppCompatActivity() {
             } else {
                 val content = text.toString()
                 answerIntent.putExtra(
-                    "ru.netology.nmedia.PostContentActivity.THIEF",
+                    RESULT_KEY,
                     content
                 )
                 setResult(RESULT_OK, answerIntent)
@@ -60,10 +48,12 @@ class PostContentActivity : AppCompatActivity() {
         }
     }
 
-    object ResultContract : ActivityResultContract<Unit, String?>() {
+    object ResultContract : ActivityResultContract<String?, String?>() {
 
-        override fun createIntent(context: Context, input: Unit): Intent =
-            Intent(context, PostContentActivity::class.java)
+        override fun createIntent(context: Context, input: String?): Intent =
+            Intent(context, PostContentActivity::class.java).putExtra(
+                "ru.netology.nmedia.PostContentActivity.TEXT_TO_EDIT",
+            input)
 
         override fun parseResult(resultCode: Int, intent: Intent?): String? =
             if (resultCode == Activity.RESULT_OK) {

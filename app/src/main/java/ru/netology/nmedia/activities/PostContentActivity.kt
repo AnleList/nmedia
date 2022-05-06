@@ -23,7 +23,7 @@ class PostContentActivity : AppCompatActivity() {
             intent.getSerializableExtra("TEXT") as String?
         with(binding.edit) {
             setText(text)
-//            requestFocus()
+            requestFocus()
             setSelection(binding.edit.text.length)
 //            window.setSoftInputMode(
 //                        WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE

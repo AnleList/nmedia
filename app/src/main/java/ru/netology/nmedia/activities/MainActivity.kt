@@ -1,15 +1,10 @@
 package ru.netology.nmedia.activities
 
-import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
-import android.view.Gravity
-import android.view.WindowManager
-import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapters.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
@@ -23,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -32,8 +26,17 @@ class MainActivity : AppCompatActivity() {
         viewModel.data.observe(this) {posts ->
             adapter.submitList(posts)
         }
+
         binding.fab.setOnClickListener {
             viewModel.onAddClicked()
+        }
+
+        viewModel.sharePostVideo.observe(this) { postVideoContent ->
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(postVideoContent))
+            val shareIntent = Intent.createChooser(
+                intent, getString(R.string.chooser_share_post_video)
+            )
+            startActivity(shareIntent)
         }
 
         viewModel.sharePostContent.observe(this) { postContent ->
@@ -57,31 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.navToPostContentEvent.observe(this) { postContent ->
-            val intentToEdit = Intent(
-                this@MainActivity,
-                PostContentActivity::class.java
-            )
-            intentToEdit.putExtra(
-                "ru.netology.nmedia.PostContentActivity.TEXT_TO_EDIT",
-                postContent
-            )
-//            startActivityForResult(intentToEdit, 0)
-//            startActivity(intentToEdit)
             postContentActivityLauncher.launch(postContent)
-
         }
     }
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == 0) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                val postContent = data?.getStringExtra(
-//                    "ru.netology.nmedia.PostContentActivity.answerIntent"
-//                )
-//                if (postContent != null) {
-//                    viewModel.onSaveClicked(postContent)
-//                }
-//            }
-//        }
-//    }
 }

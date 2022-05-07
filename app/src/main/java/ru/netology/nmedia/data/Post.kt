@@ -4,6 +4,7 @@ data class Post(
     val id: Long,
     val author: String,
     val content: String,
+    val videoContent: String?,
     val published: String,
     var likedByMe: Boolean = false,
     var likes: Int = 0,

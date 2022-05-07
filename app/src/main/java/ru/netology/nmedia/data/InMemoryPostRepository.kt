@@ -25,6 +25,7 @@ class InMemoryPostRepository: PostRepository {
                         "http://netolo.gy/fEU\n" +
                         "8 (800) 301-39-69\n" +
                         "Варшавское шоссе, д. 1, стр. 6, 1 этаж, офис 105А, Москва",
+                videoContent = "https://youtu.be/xOgT2qYAzds",
                 published = "21 мая 2020",
                 likedByMe = true,
                 likes = 1100,
@@ -41,6 +42,7 @@ class InMemoryPostRepository: PostRepository {
                         "8 (800) 500-05-22\n" +
                         "Обучающие курсы\n" +
                         "Ленинский проспект, дом 6, строение 20, Москва",
+                videoContent = "https://youtu.be/Q0KL76IK4_0",
                 published = "1 ноя 2021",
                 likedByMe = false,
                 likes = 99,
@@ -51,6 +53,7 @@ class InMemoryPostRepository: PostRepository {
                 id = 1L,
                 author = "Некая образовательная организация",
                 content = "Тут информация об этой организации",
+                videoContent = null,
                 published = "ДД ммм ГГГГ",
                 likedByMe = false,
                 likes = 0,
@@ -97,10 +100,10 @@ class InMemoryPostRepository: PostRepository {
         else update(post)
     }
 
-    private fun update(post: Post) { //сюда передаётся наш post целиком вместе со старым id
-        data.value = posts.map { //map проходится по всему списку
-            if (it.id == post.id) post //не находит в нём редактируемого поста, т к он уже удалён
-            else it //и на каждой итерации оставляет всё без изменений
+    private fun update(post: Post) {
+        data.value = posts.map {
+            if (it.id == post.id) post
+            else it
         }
     }
 

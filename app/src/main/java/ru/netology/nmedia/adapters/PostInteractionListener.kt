@@ -9,4 +9,5 @@ interface PostInteractionListener {
     fun onEditClicked(post: Post)
     fun onUnDoClicked()
     fun onAddClicked()
+    fun onShareVideoClicked(post: Post)
 }

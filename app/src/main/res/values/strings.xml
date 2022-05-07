@@ -26,4 +26,8 @@ Varshavskoe shosse, 1, p. 6, 1st floor, office 105A, Moscow</string>
     <string name="editRes">Edit</string>
     <string name="likes">Likes</string>
     <string name="chooser_share_post">Share post</string>
+    <string name="chooser_share_post_video">Share post video</string>
+    <string name="fabContentDescription">floating button: \"add\"</string>
+    <string name="videoViewContentDescription">video content</string>
+    <string name="fabVideoContentDescription">play button</string>
 </resources>

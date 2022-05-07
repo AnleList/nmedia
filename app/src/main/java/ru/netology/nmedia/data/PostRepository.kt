@@ -1,7 +1,6 @@
 package ru.netology.nmedia.data
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 
 interface PostRepository {
 

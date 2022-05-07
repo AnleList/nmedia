@@ -25,6 +25,10 @@ http://netolo.gy/fEU
     <string name="editButtonDescription">кнопка изменить</string>
     <string name="editRes">Изменить</string>
     <string name="likes">Лайки</string>
-    <string name="chooser_share_post">Поделиться</string>
+    <string name="chooser_share_post">Поделиться записью</string>
+    <string name="chooser_share_post_video">Отправить видео записи</string>
+    <string name="fabContentDescription">плавающая кнопка: \"добавить\"</string>
+    <string name="videoViewContentDescription">видео содержимое</string>
+    <string name="fabVideoContentDescription">кнопка воспроизведения</string>
 
 </resources>

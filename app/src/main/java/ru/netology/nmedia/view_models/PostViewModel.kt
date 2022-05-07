@@ -18,21 +18,27 @@ class PostViewModel: ViewModel(), PostInteractionListener {
 
     val sharePostContent = SingleLiveEvent<String>()
     val navToPostContentEvent = SingleLiveEvent<String>()
-    val currentPost = MutableLiveData<Post?>(null)
+    private val currentPost = MutableLiveData<Post?>(null)
+    val sharePostVideo = SingleLiveEvent<String?>()
 
     fun onSaveClicked(content: String) {
         if (content.isBlank()) return
-        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale("LOCALIZE"))
         val postToAddToContentEditText = currentPost.value?.copy(
             content = content
         ) ?: Post(
             id = PostRepository.NEW_POST_ID,
             author = "New author",
             content = content,
+            videoContent = null,
             published = (sdf.format(Date())).toString()
         )
         repository.save(postToAddToContentEditText)
         currentPost.value = null
+    }
+
+    override fun onShareVideoClicked(post: Post) {
+        sharePostVideo.value = post.videoContent
     }
 
     override fun onHeartClicked(post: Post) =

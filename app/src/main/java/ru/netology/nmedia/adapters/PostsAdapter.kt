@@ -1,6 +1,7 @@
 package ru.netology.nmedia.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
@@ -58,6 +59,12 @@ internal class PostsAdapter(
             binding.share.setOnClickListener {
                 listener.onShareClicked(post)
             }
+            binding.fabVideo.setOnClickListener {
+                listener.onShareVideoClicked(post)
+            }
+            binding.videoView.setOnClickListener {
+                listener.onShareVideoClicked(post)
+            }
             binding.menuButton.setOnClickListener { popupMenu.show() }
         }
 
@@ -75,6 +82,12 @@ internal class PostsAdapter(
                 author.text = post.author
                 published.text = post.published
                 about.text = post.content
+                fabVideo.visibility = if (post.videoContent != null) {
+                    View.VISIBLE
+                } else View.GONE
+                videoView.visibility = if (post.videoContent != null) {
+                    View.VISIBLE
+                } else View.GONE
                 views.text = valueToStringForShowing(
                     when (post.id) {
                         3L -> 2999999

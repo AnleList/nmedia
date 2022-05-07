@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Selection.setSelection
-import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.databinding.PostContentActivityBinding
@@ -19,25 +17,22 @@ class PostContentActivity : AppCompatActivity() {
         val binding = PostContentActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val text: String? =
+        val textToEdit: String? =
             intent.getStringExtra("ru.netology.nmedia.PostContentActivity.TEXT_TO_EDIT")
         with(binding.edit) {
-            setText(text)
+            setText(textToEdit)
             requestFocus()
             setSelection(binding.edit.text.length)
-//            window.setSoftInputMode(
-//                        WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
-//            )
             showKeyboard()
         }
 
         binding.ok.setOnClickListener {
             val answerIntent = Intent()
-            val text = binding.edit.text
-            if (text.isNullOrBlank()) {
+            val textToSave = binding.edit.text
+            if (textToSave.isNullOrBlank()) {
                 setResult(RESULT_CANCELED, answerIntent)
             } else {
-                val content = text.toString()
+                val content = textToSave.toString()
                 answerIntent.putExtra(
                     RESULT_KEY,
                     content

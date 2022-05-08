@@ -3,11 +3,11 @@ package ru.netology.nmedia.view_models
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import ru.netology.nmedia.adapters.PostInteractionListener
 import ru.netology.nmedia.data.impl.InMemoryPostRepository
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostRepository
+import ru.netology.nmedia.data.impl.FilePostRepository
 import ru.netology.nmedia.data.impl.SharedPrefsPostRepository
 import ru.netology.nmedia.util.SingleLiveEvent
 import java.text.SimpleDateFormat
@@ -18,7 +18,7 @@ class PostViewModel(
 ): AndroidViewModel(application), PostInteractionListener {
 
     private val repository: PostRepository =
-        SharedPrefsPostRepository(application)
+        FilePostRepository(application)
 
     val data = repository.getAll()
 

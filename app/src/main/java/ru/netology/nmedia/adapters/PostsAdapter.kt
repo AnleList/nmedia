@@ -90,11 +90,12 @@ internal class PostsAdapter(
                     View.VISIBLE
                 } else View.GONE
                 views.text = valueToStringForShowing(
-                    when (post.id) {
-                        3L -> 2999999
-                        2L -> 999
-                        else -> 0
-                    }
+//                    when (post.id) {
+//                        3L -> 2999999
+//                        2L -> 999
+//                        else ->
+                            0
+//                    }
                 )
                 heart.text = valueToStringForShowing(post.likes)
                 heart.isChecked = post.likedByMe

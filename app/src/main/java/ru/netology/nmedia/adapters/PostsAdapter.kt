@@ -73,11 +73,12 @@ internal class PostsAdapter(
             with(binding)
             {
                 avatar.setImageResource(
-                    when (post.id) {
-                        3L -> R.drawable.ic_launcher_foreground
-                        2L -> R.drawable.ic_skillbox
-                        else -> R.drawable.ic_baseline_tag_faces_24
-                    }
+//                    when (post.id) {
+//                        3L -> R.drawable.ic_launcher_foreground
+//                        2L -> R.drawable.ic_skillbox
+//                        else ->
+                            R.drawable.ic_baseline_tag_faces_24
+//                    }
                 )
                 author.text = post.author
                 published.text = post.published

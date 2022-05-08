@@ -139,7 +139,8 @@ class SharedPrefsPostRepository(
     private fun insert(post: Post) {
         posts = listOf(
             post.copy(
-            id = (data.value?.first()?.id ?: 0L) + 1L
+            id = if (posts.isEmpty()) 1L
+            else (posts.first().id) + 1L
             )
         ) + posts
     }

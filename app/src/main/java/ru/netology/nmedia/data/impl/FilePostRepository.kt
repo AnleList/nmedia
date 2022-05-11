@@ -2,17 +2,12 @@ package ru.netology.nmedia.data.impl
 
 import android.app.Application
 import android.content.Context
-import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostRepository
-import kotlin.properties.Delegates
 
 class FilePostRepository(
     private val application: Application
@@ -33,7 +28,7 @@ class FilePostRepository(
                 Post(
                     id = 3L,
                     author = "Нетология. Университет интернет-профессий",
-                    content = "Помогаем расти в профессии и открывать новые карьерные горизонты \uD83D\uDCAB\n" +
+                    textContent = "Помогаем расти в профессии и открывать новые карьерные горизонты \uD83D\uDCAB\n" +
                             "\n" +
                             "Нетология — это четыре уровня образования:\n" +
                             "\n" +
@@ -58,7 +53,7 @@ class FilePostRepository(
                 Post(
                     id = 2L,
                     author = "Skillbox. Образовательная платформа",
-                    content = "Skillbox — образовательная платформа, которая объединяет ведущих экспертов и практиков рынка, методистов и продюсеров образовательного контента.\n" +
+                    textContent = "Skillbox — образовательная платформа, которая объединяет ведущих экспертов и практиков рынка, методистов и продюсеров образовательного контента.\n" +
                             "\n" +
                             "Skillbox лидер сегмента дополнительного профессионального онлайн-образования согласно данным исследования “Интерфакс Академии” в 2020 году, лидер рейтинга РБК EdTech-компаний за второй квартал 2020 года, победитель премии Рунета в номинациях “Образование и кадры” (2018, 2020) и “Технологии и инновации” (2019).\n" +
                             "https://vk.cc/9OuvQO\n" +
@@ -75,7 +70,7 @@ class FilePostRepository(
                 Post(
                     id = 1L,
                     author = "Некая образовательная организация",
-                    content = "Тут информация об этой организации",
+                    textContent = "Тут информация об этой организации",
                     videoContent = null,
                     published = "ДД ммм ГГГГ",
                     likedByMe = false,

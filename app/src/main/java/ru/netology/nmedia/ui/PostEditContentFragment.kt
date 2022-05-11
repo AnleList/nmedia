@@ -13,14 +13,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import ru.netology.nmedia.R
-import ru.netology.nmedia.databinding.PostContentFragmentBinding
+import ru.netology.nmedia.databinding.PostEditContentFragmentBinding
 import ru.netology.nmedia.util.showKeyboard
 
-class PostContentFragment : Fragment( ) {
+class PostEditContentFragment : Fragment() {
 
 //    private val initialContent by lazy {
-        private val args by navArgs<PostContentFragmentArgs>()
+        private val args by navArgs<PostEditContentFragmentArgs>()
 //        args.initialContent
 //    }
 
@@ -30,7 +29,7 @@ class PostContentFragment : Fragment( ) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = PostContentFragmentBinding.inflate(
+    ) = PostEditContentFragmentBinding.inflate(
         layoutInflater, container, false
     ).also { binding ->
         with(binding.edit) {
@@ -45,7 +44,7 @@ class PostContentFragment : Fragment( ) {
         }
     }.root
 
-    private fun PostContentFragmentBinding.onSaveButtonClicked() {
+    private fun PostEditContentFragmentBinding.onSaveButtonClicked() {
 
         val textToSave = edit.text
 

@@ -4,11 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.adapters.PostInteractionListener
-import ru.netology.nmedia.data.impl.InMemoryPostRepository
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.data.impl.FilePostRepository
-import ru.netology.nmedia.data.impl.SharedPrefsPostRepository
 import ru.netology.nmedia.util.SingleLiveEvent
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,7 +21,8 @@ class PostViewModel(
     val data = repository.getAll()
 
     val sharePostContent = SingleLiveEvent<String>()
-    val navToPostContentEvent = SingleLiveEvent<String>()
+    val navToPostViewing = SingleLiveEvent<Post?>()
+    val navToPostEditContentEvent = SingleLiveEvent<String>()
     private val currentPost = MutableLiveData<Post?>(null)
     val sharePostVideo = SingleLiveEvent<String?>()
 
@@ -31,11 +30,11 @@ class PostViewModel(
         if (content.isBlank()) return
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale("LOCALIZE"))
         val postToAddToContentEditText = currentPost.value?.copy(
-            content = content
+            textContent = content
         ) ?: Post(
             id = PostRepository.NEW_POST_ID,
             author = "New author",
-            content = content,
+            textContent = content,
             videoContent = null,
             published = (sdf.format(Date())).toString()
         )
@@ -51,7 +50,7 @@ class PostViewModel(
         repository.likeById(post.id)
 
     override fun onShareClicked(post: Post) {
-        sharePostContent.value = post.content
+        sharePostContent.value = post.textContent
         repository.shareBiId(post.id)
     }
 
@@ -59,7 +58,7 @@ class PostViewModel(
         repository.removeById(post.id)
 
     override fun onEditClicked(post: Post) {
-        navToPostContentEvent.value = post.content
+        navToPostEditContentEvent.value = post.textContent
         currentPost.value = post
     }
 
@@ -68,6 +67,10 @@ class PostViewModel(
     }
 
     override fun onAddClicked() {
-      navToPostContentEvent.call()
+      navToPostEditContentEvent.call()
+    }
+
+    override fun onPostContentClicked(post: Post) {
+        navToPostViewing.value = post
     }
 }

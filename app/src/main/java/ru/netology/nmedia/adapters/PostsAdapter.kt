@@ -34,7 +34,7 @@ internal class PostsAdapter(
         private lateinit var post: Post
 
         private val popupMenu by lazy {
-            PopupMenu(itemView.context, binding.menuButton).apply {
+            PopupMenu(itemView.context, binding.postMenuButton).apply {
                 inflate(R.menu.options_post)
                 setOnMenuItemClickListener { menuItem ->
                     when (menuItem.itemId) {
@@ -53,7 +53,7 @@ internal class PostsAdapter(
         }
 
         init {
-            binding.heart.setOnClickListener {
+            binding.postHeart.setOnClickListener {
                 listener.onHeartClicked(post)
             }
             binding.share.setOnClickListener {
@@ -62,43 +62,54 @@ internal class PostsAdapter(
             binding.fabVideo.setOnClickListener {
                 listener.onShareVideoClicked(post)
             }
-            binding.videoView.setOnClickListener {
+            binding.postVideoView.setOnClickListener {
                 listener.onShareVideoClicked(post)
             }
-            binding.menuButton.setOnClickListener { popupMenu.show() }
+            binding.postMenuButton.setOnClickListener {
+                popupMenu.show()
+            }
+            binding.postTextContent.setOnClickListener {
+                listener.onPostContentClicked(
+                    post
+                )
+            }
         }
 
         fun bind(post: Post) {
             this.post = post
             with(binding)
             {
-                avatar.setImageResource(
-//                    when (post.id) {
-//                        3L -> R.drawable.ic_launcher_foreground
-//                        2L -> R.drawable.ic_skillbox
-//                        else ->
+                postAvatar.setImageResource(
+                    when (post.author) {
+                        "Нетология. Университет интернет-профессий" ->
+                            R.drawable.ic_launcher_foreground
+                        "Skillbox. Образовательная платформа" ->
+                            R.drawable.ic_skillbox
+                        else ->
                             R.drawable.ic_baseline_tag_faces_24
-//                    }
+                    }
                 )
-                author.text = post.author
-                published.text = post.published
-                about.text = post.content
+                postAuthor.text = post.author
+                postPublished.text = post.published
+                postTextContent.text = post.textContent
                 fabVideo.visibility = if (post.videoContent != null) {
                     View.VISIBLE
                 } else View.GONE
-                videoView.visibility = if (post.videoContent != null) {
+                postVideoView.visibility = if (post.videoContent != null) {
                     View.VISIBLE
                 } else View.GONE
                 views.text = valueToStringForShowing(
-//                    when (post.id) {
-//                        3L -> 2999999
-//                        2L -> 999
-//                        else ->
+                    when (post.author) {
+                        "Нетология. Университет интернет-профессий" ->
+                            2999999
+                        "Skillbox. Образовательная платформа" ->
+                            999
+                        else ->
                             0
-//                    }
+                    }
                 )
-                heart.text = valueToStringForShowing(post.likes)
-                heart.isChecked = post.likedByMe
+                postHeart.text = valueToStringForShowing(post.likes)
+                postHeart.isChecked = post.likedByMe
                 share.text = valueToStringForShowing(post.shared)
                 share.isChecked = post.sharedByMe
             }

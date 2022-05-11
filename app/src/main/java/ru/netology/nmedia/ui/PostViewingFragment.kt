@@ -8,10 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import kotlinx.android.synthetic.main.post_card_layout.*
 import kotlinx.android.synthetic.main.post_card_layout.view.*
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.PostEditContentFragmentBinding
 import ru.netology.nmedia.databinding.PostViewingFragmentBinding
+import ru.netology.nmedia.ui.PostEditContentFragment.Companion.REQUEST_KEY
+import ru.netology.nmedia.ui.PostEditContentFragment.Companion.RESULT_KEY
 import ru.netology.nmedia.valueToStringForShowing
 
 class PostViewingFragment : Fragment() {
@@ -24,12 +27,13 @@ class PostViewingFragment : Fragment() {
         savedInstanceState: Bundle?
     ) = PostViewingFragmentBinding.inflate(
         layoutInflater, container, false
-    ).also { binding ->
-        with(binding.viewing) {
+    ).also {
+            binding ->
+        with(binding) {
             val postToViewing = args.postToViewing
 
-            post_avatar.setImageResource(
-                when (postToViewing?.author) {
+            post_avatar?.setImageResource(
+                when (postToViewing.author) {
                     "Нетология. Университет интернет-профессий" ->
                         R.drawable.ic_launcher_foreground
                     "Skillbox. Образовательная платформа" ->
@@ -38,16 +42,16 @@ class PostViewingFragment : Fragment() {
                         R.drawable.ic_baseline_tag_faces_24
                 }
             )
-            post_author.text = postToViewing.author
-            post_published.text = postToViewing.published
-            post_text_content.text = postToViewing.textContent
-            fab_video.visibility = if (postToViewing.videoContent != null) {
+            post_author?.text = postToViewing.author
+            post_published?.text = postToViewing.published
+            post_text_content?.text = postToViewing.textContent
+            fab_video?.visibility = if (postToViewing.videoContent != null) {
                 View.VISIBLE
             } else View.GONE
-            post_video_view.visibility = if (postToViewing.videoContent != null) {
+            post_video_view?.visibility = if (postToViewing.videoContent != null) {
                 View.VISIBLE
             } else View.GONE
-            views.text = valueToStringForShowing(
+            views?.text = valueToStringForShowing(
                 when (postToViewing.author) {
                     "Нетология. Университет интернет-профессий" ->
                         2999999
@@ -57,12 +61,19 @@ class PostViewingFragment : Fragment() {
                         0
                 }
             )
-            post_heart.text = valueToStringForShowing(postToViewing.likes)
-            post_heart.isChecked = postToViewing.likedByMe
-            share.text = valueToStringForShowing(postToViewing.shared)
-            share.isChecked = postToViewing.sharedByMe
-        }
+            post_heart?.text = valueToStringForShowing(postToViewing.likes)
+            post_heart?.isChecked = postToViewing.likedByMe
+            share?.text = valueToStringForShowing(postToViewing.shared)
+            share?.isChecked = postToViewing.sharedByMe
+}
     }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val postToViewing = args.postToViewing
+        post_author?.text = postToViewing.author
+
+    }
 
     private fun PostEditContentFragmentBinding.onSaveButtonClicked() {
 
@@ -74,11 +85,5 @@ class PostViewingFragment : Fragment() {
             setFragmentResult(REQUEST_KEY, answerBundle)
         }
         findNavController().popBackStack()
-    }
-
-    companion object {
-        const val REQUEST_KEY = "ru.netology.nmedia.PostContent.requestKey"
-        const val RESULT_KEY = "ru.netology.nmedia.PostContent.postNewContent"
-
     }
 }

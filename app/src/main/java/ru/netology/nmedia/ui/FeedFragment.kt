@@ -53,29 +53,17 @@ class FeedFragment : Fragment() {
             viewModel.onSaveClicked(newPostContent)
         }
 
-//        val postContentActivityLauncher = registerForActivityResult(
-//            PostContentFragment.ResultContract
-//        ) { postContent ->
-//            postContent ?: return@registerForActivityResult
-//            viewModel.onSaveClicked(postContent)
-//        }
-//
-//        viewModel.navToPostContentEvent.observe(this) { postContent ->
-//            postContentActivityLauncher.launch(postContent)
-//        }
-
         viewModel.navToPostEditContentEvent.observe(this) { postContent ->
             val direction
                 = FeedFragmentDirections.actionFeedFragmentToPostContentFragment(postContent)
-            findNavController().navigate(direction
-//                R.id.action_feedFragment_to_postContentFragment,
-//                PostContentFragment.createBundle(postContent)
-            )
+            findNavController().navigate(direction)
         }
 
         viewModel.navToPostViewing.observe(this) { post ->
             val direction
-                = post?.let { FeedFragmentDirections.actionFeedFragmentToPostViewingFragment(it) }
+                = post?.let {
+                FeedFragmentDirections.actionFeedFragmentToPostViewingFragment(it)
+                }
             if (direction != null) {
                 findNavController().navigate(direction)
             }

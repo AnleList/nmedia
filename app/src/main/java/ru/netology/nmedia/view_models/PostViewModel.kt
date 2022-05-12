@@ -23,6 +23,7 @@ class PostViewModel(
     val sharePostContent = SingleLiveEvent<String>()
     val navToPostViewing = SingleLiveEvent<Post?>()
     val navToPostEditContentEvent = SingleLiveEvent<String>()
+    val navToFeedFragment = SingleLiveEvent<Unit>()
     private val currentPost = MutableLiveData<Post?>(null)
     val sharePostVideo = SingleLiveEvent<String?>()
 
@@ -54,8 +55,10 @@ class PostViewModel(
         repository.shareBiId(post.id)
     }
 
-    override fun onRemoveClicked(post: Post) =
+    override fun onRemoveClicked(post: Post) {
         repository.removeById(post.id)
+        navToFeedFragment.call()
+    }
 
     override fun onEditClicked(post: Post) {
         navToPostEditContentEvent.value = post.textContent

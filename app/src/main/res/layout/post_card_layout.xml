@@ -30,6 +30,7 @@
             app:layout_constraintEnd_toStartOf="@id/post_menu_button"
             app:layout_constraintStart_toEndOf="@+id/post_avatar"
             app:layout_constraintTop_toTopOf="@+id/post_avatar"
+            android:text="@string/name"
             tools:text="@string/name" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -115,6 +116,7 @@
             android:button="@drawable/heart_selector"
             android:contentDescription="@string/likes"
             tools:text="100K"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 

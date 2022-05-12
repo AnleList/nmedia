@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapters.PostsAdapter
-import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.databinding.FeedFragmetBinding
 import ru.netology.nmedia.view_models.PostViewModel
 

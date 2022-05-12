@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.PostViewingFragment">
 
     <ScrollView
-        android:id="@+id/viewing"
+        android:id="@+id/viewingScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:background="@android:color/transparent"/>
+        android:layout_height="wrap_content"
+        >
     <include
+        android:id="@+id/includedPost"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_height="wrap_content"
         layout="@layout/post_card_layout" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </ScrollView>
+</FrameLayout>

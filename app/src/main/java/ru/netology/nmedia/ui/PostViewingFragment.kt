@@ -9,8 +9,8 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import kotlinx.android.synthetic.main.post_card_layout.*
-import kotlinx.android.synthetic.main.post_card_layout.view.*
+//import kotlinx.android.synthetic.main.post_card_layout.*
+//import kotlinx.android.synthetic.main.post_card_layout.view.*
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapters.PostsAdapter
 import ru.netology.nmedia.databinding.PostEditContentFragmentBinding
@@ -39,41 +39,46 @@ class PostViewingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            val postToViewing = args.postToViewing
-            post_avatar?.setImageResource(
-                when (postToViewing.author) {
-                    "Нетология. Университет интернет-профессий" ->
-                        R.drawable.ic_launcher_foreground
-                    "Skillbox. Образовательная платформа" ->
-                        R.drawable.ic_skillbox
-                    else ->
-                        R.drawable.ic_baseline_tag_faces_24
-                }
-            )
-            post_author?.text = postToViewing.author
-            post_published?.text = postToViewing.published
-            post_text_content?.text = postToViewing.textContent
-            fab_video?.visibility = if (postToViewing.videoContent != null) {
-                View.VISIBLE
-            } else View.GONE
-            post_video_view?.visibility = if (postToViewing.videoContent != null) {
-                View.VISIBLE
-            } else View.GONE
-            views?.text = valueToStringForShowing(
-                when (postToViewing.author) {
-                    "Нетология. Университет интернет-профессий" ->
-                        2999999
-                    "Skillbox. Образовательная платформа" ->
-                        999
-                    else ->
-                        0
-                }
-            )
-            post_heart?.text = valueToStringForShowing(postToViewing.likes)
-            post_heart?.isChecked = postToViewing.likedByMe
-            share?.text = valueToStringForShowing(postToViewing.shared)
-            share?.isChecked = postToViewing.sharedByMe
-
+        PostViewingFragmentBinding.inflate(
+            layoutInflater
+        ).also { binding ->
+            with(binding.includedPost) {
+                val postToViewing = args.postToViewing
+                postAvatar.setImageResource(
+                    when (postToViewing.author) {
+                        "Нетология. Университет интернет-профессий" ->
+                            R.drawable.ic_launcher_foreground
+                        "Skillbox. Образовательная платформа" ->
+                            R.drawable.ic_skillbox
+                        else ->
+                            R.drawable.ic_baseline_tag_faces_24
+                    }
+                )
+                postAuthor.text = postToViewing.author
+                postPublished.text = postToViewing.published
+                postTextContent.text = postToViewing.textContent
+                fabVideo.visibility = if (postToViewing.videoContent != null) {
+                    View.VISIBLE
+                } else View.GONE
+                postVideoView.visibility = if (postToViewing.videoContent != null) {
+                    View.VISIBLE
+                } else View.GONE
+                views.text = valueToStringForShowing(
+                    when (postToViewing.author) {
+                        "Нетология. Университет интернет-профессий" ->
+                            2999999
+                        "Skillbox. Образовательная платформа" ->
+                            999
+                        else ->
+                            0
+                    }
+                )
+                postHeart.text = valueToStringForShowing(postToViewing.likes)
+                postHeart.isChecked = postToViewing.likedByMe
+                share.text = valueToStringForShowing(postToViewing.shared)
+                share.isChecked = postToViewing.sharedByMe
+            }
+        }.root
     }
 
     private fun PostEditContentFragmentBinding.onSaveButtonClicked() {

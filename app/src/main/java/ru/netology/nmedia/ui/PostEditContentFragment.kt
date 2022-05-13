@@ -36,8 +36,8 @@ class PostEditContentFragment : Fragment() {
             setText(args.initialContent)
             requestFocus()
             setSelection(binding.edit.text.length)
-//            showKeyboard()
             showSoftInputOnFocus
+            showKeyboard()
         }
         binding.ok.setOnClickListener {
             binding.onSaveButtonClicked()
@@ -59,14 +59,5 @@ class PostEditContentFragment : Fragment() {
     companion object {
         const val REQUEST_KEY = "ru.netology.nmedia.PostContent.requestKey"
         const val RESULT_KEY = "ru.netology.nmedia.PostContent.postNewContent"
-//        const val TEXT_TO_EDIT_KEY = "ru.netology.nmedia.PostContent.TEXT_TO_EDIT"
-//
-//        fun create(initialContent: String?) = PostContentFragment().apply {
-//            arguments = createBundle(initialContent)
-//        }
-//
-//        fun createBundle(initialContent: String?)  = Bundle(1).apply {
-//            putString(TEXT_TO_EDIT_KEY, initialContent)
-//        }
     }
 }

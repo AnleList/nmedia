@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapters.PostsAdapter
@@ -45,14 +46,14 @@ class FeedFragment : Fragment() {
             startActivity(shareIntent)
         }
 
-        setFragmentResultListener(
-            requestKey = PostEditContentFragment.REQUEST_KEY
-        ) { requestKey, bundle ->
-            if (requestKey != PostEditContentFragment.REQUEST_KEY) return@setFragmentResultListener
-            val newPostContent = bundle.getString(PostEditContentFragment.RESULT_KEY
-            ) ?: return@setFragmentResultListener
-            viewModel.onSaveClicked(newPostContent)
-        }
+//        setFragmentResultListener(
+//            requestKey = PostEditContentFragment.REQUEST_KEY
+//        ) { requestKey, bundle ->
+//            if (requestKey != PostEditContentFragment.REQUEST_KEY) return@setFragmentResultListener
+//            val newPostContent = bundle.getString(PostEditContentFragment.RESULT_KEY
+//            ) ?: return@setFragmentResultListener
+//            viewModel.onSaveClicked(newPostContent)
+//        }
 
         viewModel.navToPostEditContentEvent.observe(this) { postContent ->
             val direction

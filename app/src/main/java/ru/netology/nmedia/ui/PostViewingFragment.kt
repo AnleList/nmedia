@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.*
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.map
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.netology.nmedia.R
+import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.databinding.PostViewingFragmentBinding
 import ru.netology.nmedia.valueToStringForShowing
 import ru.netology.nmedia.view_models.PostViewModel
@@ -25,14 +26,7 @@ class PostViewingFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setFragmentResultListener(
-            requestKey = PostEditContentFragment.REQUEST_KEY
-        ) { requestKey, bundle ->
-            if (requestKey != PostEditContentFragment.REQUEST_KEY) return@setFragmentResultListener
-            val newPostContent = bundle.getString(PostEditContentFragment.RESULT_KEY
-            ) ?: return@setFragmentResultListener
-            viewModel.onSaveClicked(newPostContent)
-        }
+
 
 //        viewModel.navToFeedFragment.observe(this) {
 //            val direction = PostViewingFragmentDirections
@@ -54,7 +48,23 @@ class PostViewingFragment : Fragment() {
     ) = PostViewingFragmentBinding.inflate(
         layoutInflater, container, false
     ).also { binding ->
-        val postToViewing = args.postToViewing
+//
+//        setFragmentResultListener(
+//            requestKey = PostEditContentFragment.REQUEST_KEY
+//        ) { requestKey, bundle ->
+//            if (requestKey != PostEditContentFragment.REQUEST_KEY) return@setFragmentResultListener
+//            val newPostContent = bundle.getString(PostEditContentFragment.RESULT_KEY
+//            ) ?: return@setFragmentResultListener
+//            viewModel.onSaveClicked(newPostContent)
+//        }
+        var postToViewing: Post = args.postToViewing
+        viewModel.data.value?.map { it ->
+            if (it.id == args.postToViewing.id)
+                postToViewing = it
+        }
+
+//        var postToViewing = viewModel.data.value?.first { it.id == args.postToViewing.id }
+
         with(binding.includedPost) {
             postAvatar.setImageResource(
                 when (postToViewing.author) {

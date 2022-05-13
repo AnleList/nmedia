@@ -11,7 +11,7 @@ import ru.netology.nmedia.util.SingleLiveEvent
 import java.text.SimpleDateFormat
 import java.util.*
 
-public class PostViewModel(
+class PostViewModel(
     application: Application
 ): AndroidViewModel(application), PostInteractionListener {
 
@@ -24,13 +24,14 @@ public class PostViewModel(
     val navToPostViewing = SingleLiveEvent<Post?>()
     val navToPostEditContentEvent = SingleLiveEvent<String>()
     val navToFeedFragment = SingleLiveEvent<Unit>()
-    private val currentPost = MutableLiveData<Post?>(null)
+    val currentPost = MutableLiveData<Post?>(null)
     val sharePostVideo = SingleLiveEvent<String?>()
+//    val postToViewing = MutableLiveData<Post?>(null)
 
     fun onSaveClicked(content: String) {
         if (content.isBlank()) return
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale("LOCALIZE"))
-        val postToAddToContentEditText = currentPost.value?.copy(
+        val postToAdd = currentPost.value?.copy(
             textContent = content
         ) ?: Post(
             id = PostRepository.NEW_POST_ID,
@@ -39,7 +40,8 @@ public class PostViewModel(
             videoContent = null,
             published = (sdf.format(Date())).toString()
         )
-        repository.save(postToAddToContentEditText)
+        repository.save(postToAdd)
+//        postToViewing.value = postToAdd
         currentPost.value = null
     }
 

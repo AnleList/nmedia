@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.*
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.netology.nmedia.R
@@ -19,16 +17,28 @@ import ru.netology.nmedia.view_models.PostViewModel
 class PostViewingFragment : Fragment() {
 
     private val args by navArgs<PostViewingFragmentArgs>()
-    private val viewModel by viewModels<PostViewModel>()
+//    private val viewModel by viewModels<PostViewModel>()
+//    val viewModel: PostViewModel = ViewModelProvider(this)[PostViewModel::class.java]
+    private val viewModel by activityViewModels<PostViewModel>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.navToFeedFragment.observe(this) {
-            val direction = PostViewingFragmentDirections
-                .actionPostViewingFragmentToFeedFragment()
-            findNavController().navigate(direction)
+        setFragmentResultListener(
+            requestKey = PostEditContentFragment.REQUEST_KEY
+        ) { requestKey, bundle ->
+            if (requestKey != PostEditContentFragment.REQUEST_KEY) return@setFragmentResultListener
+            val newPostContent = bundle.getString(PostEditContentFragment.RESULT_KEY
+            ) ?: return@setFragmentResultListener
+            viewModel.onSaveClicked(newPostContent)
         }
+
+//        viewModel.navToFeedFragment.observe(this) {
+//            val direction = PostViewingFragmentDirections
+//                .actionPostViewingFragmentToFeedFragment()
+//            findNavController().navigate(direction)
+//        }
 
         viewModel.navToPostEditContentEvent.observe(this) { postContent ->
             val direction = PostViewingFragmentDirections
@@ -44,7 +54,6 @@ class PostViewingFragment : Fragment() {
     ) = PostViewingFragmentBinding.inflate(
         layoutInflater, container, false
     ).also { binding ->
-
         val postToViewing = args.postToViewing
         with(binding.includedPost) {
             postAvatar.setImageResource(
@@ -105,16 +114,9 @@ class PostViewingFragment : Fragment() {
         }
     }.root
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-            setFragmentResultListener(
-            requestKey = PostEditContentFragment.REQUEST_KEY
-        ) { requestKey, bundle ->
-            if (requestKey != PostEditContentFragment.REQUEST_KEY) return@setFragmentResultListener
-            val newPostContent = bundle.getString(PostEditContentFragment.RESULT_KEY
-            ) ?: return@setFragmentResultListener
-            viewModel.onSaveClicked(newPostContent)
-        }
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//
+//    }
 }

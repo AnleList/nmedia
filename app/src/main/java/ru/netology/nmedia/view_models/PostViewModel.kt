@@ -11,7 +11,7 @@ import ru.netology.nmedia.util.SingleLiveEvent
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PostViewModel(
+public class PostViewModel(
     application: Application
 ): AndroidViewModel(application), PostInteractionListener {
 

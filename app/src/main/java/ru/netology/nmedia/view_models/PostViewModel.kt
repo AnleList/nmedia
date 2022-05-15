@@ -7,6 +7,8 @@ import ru.netology.nmedia.adapters.PostInteractionListener
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.data.impl.FilePostRepository
+import ru.netology.nmedia.data.impl.SQLiteRepository
+import ru.netology.nmedia.db.AppDb
 import ru.netology.nmedia.util.SingleLiveEvent
 import java.text.SimpleDateFormat
 import java.util.*
@@ -16,7 +18,11 @@ class PostViewModel(
 ): AndroidViewModel(application), PostInteractionListener {
 
     private val repository: PostRepository =
-        FilePostRepository(application)
+        SQLiteRepository(
+            dao = AppDb.getInstance(
+                context = application
+            ).postDao
+        )
 
     val data = repository.getAll()
 
@@ -26,7 +32,6 @@ class PostViewModel(
     val navToFeedFragment = SingleLiveEvent<Unit>()
     val currentPost = MutableLiveData<Post?>(null)
     val sharePostVideo = SingleLiveEvent<String?>()
-//    val postToViewing = MutableLiveData<Post?>(null)
 
     fun onSaveClicked(content: String) {
         if (content.isBlank()) return
@@ -41,7 +46,6 @@ class PostViewModel(
             published = (sdf.format(Date())).toString()
         )
         repository.save(postToAdd)
-//        postToViewing.value = postToAdd
         currentPost.value = null
     }
 

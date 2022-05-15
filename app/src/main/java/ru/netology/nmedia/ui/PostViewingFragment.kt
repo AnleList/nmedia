@@ -18,21 +18,10 @@ import ru.netology.nmedia.view_models.PostViewModel
 class PostViewingFragment : Fragment() {
 
     private val args by navArgs<PostViewingFragmentArgs>()
-//    private val viewModel by viewModels<PostViewModel>()
-//    val viewModel: PostViewModel = ViewModelProvider(this)[PostViewModel::class.java]
     private val viewModel by activityViewModels<PostViewModel>()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
-//        viewModel.navToFeedFragment.observe(this) {
-//            val direction = PostViewingFragmentDirections
-//                .actionPostViewingFragmentToFeedFragment()
-//            findNavController().navigate(direction)
-//        }
 
         viewModel.navToPostEditContentEvent.observe(this) { postContent ->
             val direction = PostViewingFragmentDirections
@@ -62,9 +51,7 @@ class PostViewingFragment : Fragment() {
             if (it.id == args.postToViewing.id)
                 postToViewing = it
         }
-
 //        var postToViewing = viewModel.data.value?.first { it.id == args.postToViewing.id }
-
         with(binding.includedPost) {
             postAvatar.setImageResource(
                 when (postToViewing.author) {
@@ -126,7 +113,6 @@ class PostViewingFragment : Fragment() {
 
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        super.onViewCreated(view, savedInstanceState)
-//
 //
 //    }
 }

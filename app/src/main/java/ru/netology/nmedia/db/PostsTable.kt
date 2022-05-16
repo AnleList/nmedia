@@ -6,10 +6,10 @@ object PostsTable {
 
     val DDL = """
         CREATE TABLE $NAME (
-        ${Column.ID.columnName} INTEGER PRIMARY KEY AUTOINCREMENT
+        ${Column.ID.columnName} INTEGER PRIMARY KEY AUTOINCREMENT,
         ${Column.AUTHOR.columnName} TEXT NOT NULL,
         ${Column.TEXT_CONTENT.columnName} TEXT NOT NULL,
-        ${Column.VIDEO_CONTENT.columnName} TEXT NOT NULL,
+        ${Column.VIDEO_CONTENT.columnName} TEXT DEFAULT NULL,
         ${Column.PUBLISHED.columnName} TEXT NOT NULL,
         ${Column.LIKED_BY_ME.columnName} BOOLEAN NOT NULL DEFAULT 0,
         ${Column.LIKES.columnName} INTEGER NOT NULL DEFAULT 0
@@ -24,7 +24,7 @@ object PostsTable {
         ID("id"),
         AUTHOR("author"),
         TEXT_CONTENT("content"),
-        VIDEO_CONTENT("videocontent"),
+        VIDEO_CONTENT("videoContent"),
         PUBLISHED("published"),
         LIKED_BY_ME("likedByMe"),
         LIKES("likes")

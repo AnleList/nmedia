@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.adapters.PostInteractionListener
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostRepository
-import ru.netology.nmedia.data.impl.FilePostRepository
 import ru.netology.nmedia.data.impl.SQLiteRepository
 import ru.netology.nmedia.db.AppDb
 import ru.netology.nmedia.util.SingleLiveEvent
@@ -33,6 +32,17 @@ class PostViewModel(
     val currentPost = MutableLiveData<Post?>(null)
     val sharePostVideo = SingleLiveEvent<String?>()
 
+    fun onEditBackPressed(draft: String){
+        if (currentPost.value != null) {
+            currentPost.value?.copy(
+                draftTextContent = draft
+            )?.let {
+                repository.save(it)
+            }
+            currentPost.value = null
+        }
+    }
+
     fun onSaveClicked(content: String) {
         if (content.isBlank()) return
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale("LOCALIZE"))
@@ -42,6 +52,7 @@ class PostViewModel(
             id = PostRepository.NEW_POST_ID,
             author = "New author",
             textContent = content,
+            draftTextContent = null,
             videoContent = null,
             published = (sdf.format(Date())).toString()
         )
@@ -67,7 +78,9 @@ class PostViewModel(
     }
 
     override fun onEditClicked(post: Post) {
-        navToPostEditContentEvent.value = post.textContent
+        navToPostEditContentEvent.value =
+            post.draftTextContent ?:
+            post.textContent
         currentPost.value = post
     }
 

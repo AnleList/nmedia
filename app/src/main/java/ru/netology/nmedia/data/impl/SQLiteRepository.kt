@@ -24,7 +24,8 @@ class SQLiteRepository(
             listOf(saved) + posts
         } else {
             posts.map {
-                if (it.id != id) it else saved
+                if (it.id != id) it
+                else saved
             }
         }
     }

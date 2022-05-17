@@ -24,6 +24,7 @@ class PostDaoImpl(
         val values = ContentValues().apply {
             put(PostsTable.Column.AUTHOR.columnName, post.author)
             put(PostsTable.Column.TEXT_CONTENT.columnName, post.textContent)
+            put(PostsTable.Column.DRAFT_TEXT_CONTENT.columnName, post.draftTextContent)
             put(PostsTable.Column.PUBLISHED.columnName, post.published)
             if (post.videoContent != null)
                 put(PostsTable.Column.VIDEO_CONTENT.columnName, post.videoContent)

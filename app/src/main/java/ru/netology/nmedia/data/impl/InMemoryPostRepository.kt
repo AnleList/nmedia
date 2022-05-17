@@ -27,6 +27,7 @@ class InMemoryPostRepository: PostRepository {
                         "http://netolo.gy/fEU\n" +
                         "8 (800) 301-39-69\n" +
                         "Варшавское шоссе, д. 1, стр. 6, 1 этаж, офис 105А, Москва",
+                draftTextContent = null,
                 videoContent = "https://youtu.be/xOgT2qYAzds",
                 published = "21 мая 2020",
                 likedByMe = true,
@@ -44,6 +45,7 @@ class InMemoryPostRepository: PostRepository {
                         "8 (800) 500-05-22\n" +
                         "Обучающие курсы\n" +
                         "Ленинский проспект, дом 6, строение 20, Москва",
+                draftTextContent = null,
                 videoContent = "https://youtu.be/Q0KL76IK4_0",
                 published = "1 ноя 2021",
                 likedByMe = false,
@@ -55,6 +57,7 @@ class InMemoryPostRepository: PostRepository {
                 id = 1L,
                 author = "Некая образовательная организация",
                 textContent = "Тут информация об этой организации",
+                draftTextContent = null,
                 videoContent = null,
                 published = "ДД ммм ГГГГ",
                 likedByMe = false,

@@ -1,22 +1,21 @@
 package ru.netology.nmedia.ui
 
-import android.app.Activity
-import android.app.Activity.RESULT_CANCELED
-import android.app.Activity.RESULT_OK
-import android.content.Context
-import android.content.Intent
+import android.app.Instrumentation
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import kotlinx.coroutines.flow.callbackFlow
 import ru.netology.nmedia.databinding.PostEditContentFragmentBinding
 import ru.netology.nmedia.util.showKeyboard
 import ru.netology.nmedia.view_models.PostViewModel
+
 
 class PostEditContentFragment : Fragment() {
 
@@ -42,18 +41,28 @@ class PostEditContentFragment : Fragment() {
             showSoftInputOnFocus
             showKeyboard()
         }
-        binding.ok.setOnClickListener {
 
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    viewModel.onEditBackPressed(
+                        binding.edit.text.toString()
+                    )
+                    findNavController().popBackStack()
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
+
+
+        binding.ok.setOnClickListener {
             binding.onSaveButtonClicked()
         }
     }.root
 
     private fun PostEditContentFragmentBinding.onSaveButtonClicked() {
-
         val textToSave = edit.text
         viewModel.onSaveClicked(textToSave.toString())
-
-
         if (!textToSave.isNullOrBlank()) {
             val answerBundle = Bundle(1)
             answerBundle.putString(RESULT_KEY, textToSave.toString())

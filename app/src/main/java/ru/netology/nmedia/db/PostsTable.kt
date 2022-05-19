@@ -13,7 +13,8 @@ object PostsTable {
         ${Column.VIDEO_CONTENT.columnName} TEXT DEFAULT NULL,
         ${Column.PUBLISHED.columnName} TEXT NOT NULL,
         ${Column.LIKED_BY_ME.columnName} BOOLEAN NOT NULL DEFAULT 0,
-        ${Column.LIKES.columnName} INTEGER NOT NULL DEFAULT 0
+        ${Column.LIKES.columnName} INTEGER NOT NULL DEFAULT 0,
+        ${Column.SHARES.columnName} INTEGER NOT NULL DEFAULT 0
         );
     """.trimIndent()
 
@@ -29,6 +30,7 @@ object PostsTable {
         VIDEO_CONTENT("videoContent"),
         PUBLISHED("published"),
         LIKED_BY_ME("likedByMe"),
-        LIKES("likes")
+        LIKES("likes"),
+        SHARES("shares")
     }
 }

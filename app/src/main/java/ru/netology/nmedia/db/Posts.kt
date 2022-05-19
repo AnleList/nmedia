@@ -13,5 +13,6 @@ fun Cursor.toPost() = Post(
     published = getString(getColumnIndexOrThrow(PostsTable.Column.PUBLISHED.columnName)),
     videoContent = getString(getColumnIndexOrThrow(PostsTable.Column.VIDEO_CONTENT.columnName)),
     likes = getInt(getColumnIndexOrThrow(PostsTable.Column.LIKES.columnName)),
-    likedByMe = getInt(getColumnIndexOrThrow(PostsTable.Column.LIKED_BY_ME.columnName)) != 0
-    )
+    likedByMe = getInt(getColumnIndexOrThrow(PostsTable.Column.LIKED_BY_ME.columnName)) != 0,
+    shared = getInt(getColumnIndexOrThrow(PostsTable.Column.SHARES.columnName))
+)

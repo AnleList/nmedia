@@ -1,5 +1,6 @@
 package ru.netology.nmedia.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,13 @@ class PostViewingFragment : Fragment() {
                 .actionPostViewingFragmentToPostContentFragment(postContent)
             findNavController().navigate(direction)
         }
+
+//        viewModel.navToFeedFragmentFromViewingFragment.observe(this) {
+//            val direction = PostViewingFragmentDirections.
+//                    actionPostViewingFragmentToFeedFragment()
+//            findNavController().navigate(direction)
+//        }
+
     }
 
     override fun onCreateView(
@@ -50,43 +58,48 @@ class PostViewingFragment : Fragment() {
             if (it.id == args.postToViewing.id)
                 postToViewing = it
         }
-//        var postToViewing = viewModel.data.value?.first { it.id == args.postToViewing.id }
-        with(binding.includedPost) {
-            postAvatar.setImageResource(
-                when (postToViewing.author) {
-                    "Нетология. Университет интернет-профессий" ->
-                        R.drawable.ic_launcher_foreground
-                    "Skillbox. Образовательная платформа" ->
-                        R.drawable.ic_skillbox
-                    else ->
-                        R.drawable.ic_baseline_tag_faces_24
-                }
-            )
-            postAuthor.text = postToViewing.author
-            postPublished.text = postToViewing.published
-            postTextContent.text = postToViewing.textContent
-            fabVideo.visibility = if (postToViewing.videoContent != null) {
-                View.VISIBLE
-            } else View.GONE
-            postVideoView.visibility = if (postToViewing.videoContent != null) {
-                View.VISIBLE
-            } else View.GONE
-            views.text = valueToStringForShowing(
-                when (postToViewing.author) {
-                    "Нетология. Университет интернет-профессий" ->
-                        2999999
-                    "Skillbox. Образовательная платформа" ->
-                        999
-                    else ->
-                        0
-                }
-            )
-            postHeart.text = valueToStringForShowing(postToViewing.likes)
-            postHeart.isChecked = postToViewing.likedByMe
-            share.text = valueToStringForShowing(postToViewing.shared)
-            share.isChecked = postToViewing.sharedByMe
-            postHeart.setOnClickListener { viewModel.onHeartClicked(postToViewing) }
+
+        viewModel.data.observe(viewLifecycleOwner) {posts ->
+            postToViewing = posts.first {it.id == args.postToViewing.id}
+            with(binding.includedPost) {
+                postAvatar.setImageResource(
+                    when (postToViewing.author) {
+                        "Нетология. Университет интернет-профессий" ->
+                            R.drawable.ic_launcher_foreground
+                        "Skillbox. Образовательная платформа" ->
+                            R.drawable.ic_skillbox
+                        else ->
+                            R.drawable.ic_baseline_tag_faces_24
+                    }
+                )
+                postAuthor.text = postToViewing.author
+                postPublished.text = postToViewing.published
+                postTextContent.text = postToViewing.textContent
+                fabVideo.visibility = if (postToViewing.videoContent != null) {
+                    View.VISIBLE
+                } else View.GONE
+                postVideoView.visibility = if (postToViewing.videoContent != null) {
+                    View.VISIBLE
+                } else View.GONE
+                views.text = valueToStringForShowing(
+                    when (postToViewing.author) {
+                        "Нетология. Университет интернет-профессий" ->
+                            2999999
+                        "Skillbox. Образовательная платформа" ->
+                            999
+                        else ->
+                            0
+                    }
+                )
+                postHeart.text = valueToStringForShowing(postToViewing.likes)
+                postHeart.isChecked = postToViewing.likedByMe
+                share.text = valueToStringForShowing(postToViewing.shared)
+                share.isChecked = postToViewing.sharedByMe
+                postHeart.setOnClickListener { viewModel.onHeartClicked(postToViewing) }
             }
+        }
+//        var postToViewing = viewModel.data.value?.first { it.id == args.postToViewing.id }
+
         val popupMenu by lazy {
             PopupMenu(requireContext(), binding.includedPost.postMenuButton).apply {
                 inflate(R.menu.options_post)
@@ -108,6 +121,35 @@ class PostViewingFragment : Fragment() {
         binding.includedPost.postMenuButton.setOnClickListener {
             popupMenu.show()
         }
+
+        binding.includedPost.postHeart.setOnClickListener {
+            viewModel.onHeartClicked(postToViewing)
+        }
+        binding.includedPost.share.setOnClickListener {
+            viewModel.onShareClicked(postToViewing)
+        }
+        binding.includedPost.fabVideo.setOnClickListener {
+            viewModel.onShareVideoClicked(postToViewing)
+        }
+        binding.includedPost.postVideoView.setOnClickListener {
+            viewModel.onShareVideoClicked(postToViewing)
+        }
+        binding.includedPost.postTextContent.setOnClickListener {
+            viewModel.onEditClicked(postToViewing)
+        }
+
+        viewModel.sharePostContent.observe(viewLifecycleOwner) { postContent ->
+            val intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, postContent)
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(
+                intent, getString(R.string.chooser_share_post)
+            )
+            startActivity(shareIntent)
+        }
+
     }.root
 
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

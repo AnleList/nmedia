@@ -41,6 +41,7 @@ class SQLiteRepository(
     }
 
     override fun shareBiId(id: Long) {
+        dao.shareBiId(id)
         data.value = posts.map {
             if (it.id != id) it else it.copy(
                 sharedByMe = true,

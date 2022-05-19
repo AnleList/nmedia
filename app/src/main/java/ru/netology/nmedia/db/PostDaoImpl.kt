@@ -72,4 +72,14 @@ class PostDaoImpl(
             arrayOf(id.toString())
         )
     }
+
+    override fun shareBiId(id: Long) {
+        db.execSQL(
+            """
+                UPDATE ${PostsTable.NAME} SET
+                shares = shares + 1
+                WHERE id = ?;
+            """.trimIndent(),
+            arrayOf(id)
+        )    }
 }

@@ -22,10 +22,6 @@ class PostEditContentFragment : Fragment() {
 //    private val initialContent by lazy {
         private val args by navArgs<PostEditContentFragmentArgs>()
         private val viewModel by activityViewModels<PostViewModel>()
-//        args.initialContent
-//    }
-
-//        get() = requireArguments().getString(TEXT_TO_EDIT_KEY)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,8 +32,8 @@ class PostEditContentFragment : Fragment() {
     ).also { binding ->
         with(binding.edit) {
             setText(args.initialContent)
-            requestFocus()
             setSelection(binding.edit.text.length)
+            requestFocus()
             showSoftInputOnFocus
             showKeyboard()
         }

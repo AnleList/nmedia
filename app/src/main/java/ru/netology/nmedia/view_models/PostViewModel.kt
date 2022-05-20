@@ -47,8 +47,9 @@ class PostViewModel(
         if (content.isBlank()) return
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale("LOCALIZE"))
         val postToAdd = currentPost.value?.copy(
-            textContent = content
-        ) ?: Post(
+            textContent = content,
+            draftTextContent = null
+            ) ?: Post(
             id = PostRepository.NEW_POST_ID,
             author = "New author",
             textContent = content,
@@ -79,8 +80,7 @@ class PostViewModel(
 
     override fun onEditClicked(post: Post) {
         navToPostEditContentEvent.value =
-            post.draftTextContent ?:
-            post.textContent
+            post.draftTextContent ?: post.textContent
         currentPost.value = post
     }
 

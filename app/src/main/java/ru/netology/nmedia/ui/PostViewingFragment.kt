@@ -28,13 +28,6 @@ class PostViewingFragment : Fragment() {
                 .actionPostViewingFragmentToPostContentFragment(postContent)
             findNavController().navigate(direction)
         }
-
-//        viewModel.navToFeedFragmentFromViewingFragment.observe(this) {
-//            val direction = PostViewingFragmentDirections.
-//                    actionPostViewingFragmentToFeedFragment()
-//            findNavController().navigate(direction)
-//        }
-
     }
 
     override fun onCreateView(
@@ -54,13 +47,9 @@ class PostViewingFragment : Fragment() {
 //            viewModel.onSaveClicked(newPostContent)
 //        }
         var postToViewing: Post = args.postToViewing
-        viewModel.data.value?.map { it ->
-            if (it.id == args.postToViewing.id)
-                postToViewing = it
-        }
 
         viewModel.data.observe(viewLifecycleOwner) {posts ->
-            postToViewing = posts.first {it.id == args.postToViewing.id}
+            postToViewing = posts.first {it.id == postToViewing.id}
             with(binding.includedPost) {
                 postAvatar.setImageResource(
                     when (postToViewing.author) {
@@ -97,45 +86,43 @@ class PostViewingFragment : Fragment() {
                 share.isChecked = postToViewing.sharedByMe
                 postHeart.setOnClickListener { viewModel.onHeartClicked(postToViewing) }
             }
-        }
-//        var postToViewing = viewModel.data.value?.first { it.id == args.postToViewing.id }
-
-        val popupMenu by lazy {
-            PopupMenu(requireContext(), binding.includedPost.postMenuButton).apply {
-                inflate(R.menu.options_post)
-                setOnMenuItemClickListener { menuItem ->
-                    when (menuItem.itemId) {
-                        R.id.removeItem -> {
-                            viewModel.onRemoveClicked(postToViewing)
-                            true
+            val popupMenu by lazy {
+                PopupMenu(requireContext(), binding.includedPost.postMenuButton).apply {
+                    inflate(R.menu.options_post)
+                    setOnMenuItemClickListener { menuItem ->
+                        when (menuItem.itemId) {
+                            R.id.removeItem -> {
+                                viewModel.onRemoveClicked(postToViewing)
+                                true
+                            }
+                            R.id.editItem -> {
+                                viewModel.onEditClicked(postToViewing)
+                                true
+                            }
+                            else -> false
                         }
-                        R.id.editItem -> {
-                            viewModel.onEditClicked(postToViewing)
-                            true
-                        }
-                        else -> false
                     }
                 }
             }
-        }
-        binding.includedPost.postMenuButton.setOnClickListener {
-            popupMenu.show()
-        }
+            binding.includedPost.postMenuButton.setOnClickListener {
+                popupMenu.show()
+            }
 
-        binding.includedPost.postHeart.setOnClickListener {
-            viewModel.onHeartClicked(postToViewing)
-        }
-        binding.includedPost.share.setOnClickListener {
-            viewModel.onShareClicked(postToViewing)
-        }
-        binding.includedPost.fabVideo.setOnClickListener {
-            viewModel.onShareVideoClicked(postToViewing)
-        }
-        binding.includedPost.postVideoView.setOnClickListener {
-            viewModel.onShareVideoClicked(postToViewing)
-        }
-        binding.includedPost.postTextContent.setOnClickListener {
-            viewModel.onEditClicked(postToViewing)
+            binding.includedPost.postHeart.setOnClickListener {
+                viewModel.onHeartClicked(postToViewing)
+            }
+            binding.includedPost.share.setOnClickListener {
+                viewModel.onShareClicked(postToViewing)
+            }
+            binding.includedPost.fabVideo.setOnClickListener {
+                viewModel.onShareVideoClicked(postToViewing)
+            }
+            binding.includedPost.postVideoView.setOnClickListener {
+                viewModel.onShareVideoClicked(postToViewing)
+            }
+            binding.includedPost.postTextContent.setOnClickListener {
+                viewModel.onEditClicked(postToViewing)
+            }
         }
 
         viewModel.sharePostContent.observe(viewLifecycleOwner) { postContent ->
@@ -149,7 +136,6 @@ class PostViewingFragment : Fragment() {
             )
             startActivity(shareIntent)
         }
-
     }.root
 
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

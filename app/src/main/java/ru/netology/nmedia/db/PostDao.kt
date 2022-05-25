@@ -37,4 +37,7 @@ interface PostDao {
 
     @Query("UPDATE posts SET sharedByMe = CASE WHEN sharedByMe THEN 0 ELSE 1 END WHERE id = :id")
     fun shareBiId(id: Long)
+
+    @Query("SELECT COUNT(id) FROM posts LIMIT 1")
+    fun hasAnyPosts(): Boolean
 }

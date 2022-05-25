@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.adapters.PostInteractionListener
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostRepository
-import ru.netology.nmedia.data.impl.SQLiteRepository
+import ru.netology.nmedia.data.impl.PostRepositoryImpl
 import ru.netology.nmedia.db.AppDb
 import ru.netology.nmedia.util.SingleLiveEvent
 import java.text.SimpleDateFormat
@@ -16,20 +16,19 @@ class PostViewModel(
     application: Application
 ): AndroidViewModel(application), PostInteractionListener {
 
-    private val repository: PostRepository =
-        SQLiteRepository(
+    private val repository: PostRepository = PostRepositoryImpl(
             dao = AppDb.getInstance(
                 context = application
             ).postDao
         )
 
-    val data = repository.getAll()
+    val data by repository::data
 
     val sharePostContent = SingleLiveEvent<String>()
     val navToPostViewing = SingleLiveEvent<Post?>()
     val navToPostEditContentEvent = SingleLiveEvent<String>()
-    val navToFeedFragment = SingleLiveEvent<Unit>()
-    val currentPost = MutableLiveData<Post?>(null)
+    private val navToFeedFragment = SingleLiveEvent<Unit>()
+    private val currentPost = MutableLiveData<Post?>(null)
     val sharePostVideo = SingleLiveEvent<String?>()
 
     fun onEditBackPressed(draft: String){

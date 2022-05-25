@@ -19,8 +19,6 @@ import ru.netology.nmedia.view_models.PostViewModel
 class FeedFragment : Fragment() {
 
     private val viewModel by activityViewModels<PostViewModel>()
-//    public val viewModel by viewModels<PostViewModel>()
-//    val viewModel: PostViewModel = ViewModelProviders.of(this).get(PostViewModel::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

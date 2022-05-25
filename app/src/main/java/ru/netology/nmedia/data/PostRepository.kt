@@ -4,10 +4,13 @@ import androidx.lifecycle.LiveData
 
 interface PostRepository {
 
+    val data: LiveData<List<Post>>
+
+
     fun getAll(): LiveData<List<Post>>
-    fun likeById(id: Long)
-    fun shareBiId(id: Long)
-    fun removeById(id: Long)
+    fun likeById(postId: Long)
+    fun shareBiId(postId: Long)
+    fun removeById(postId: Long)
     fun save(post: Post)
 
     companion object {

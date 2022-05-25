@@ -44,15 +44,6 @@ class FeedFragment : Fragment() {
             startActivity(shareIntent)
         }
 
-//        setFragmentResultListener(
-//            requestKey = PostEditContentFragment.REQUEST_KEY
-//        ) { requestKey, bundle ->
-//            if (requestKey != PostEditContentFragment.REQUEST_KEY) return@setFragmentResultListener
-//            val newPostContent = bundle.getString(PostEditContentFragment.RESULT_KEY
-//            ) ?: return@setFragmentResultListener
-//            viewModel.onSaveClicked(newPostContent)
-//        }
-
         viewModel.navToPostEditContentEvent.observe(this) { postContent ->
             val direction
                 = FeedFragmentDirections.actionFeedFragmentToPostContentFragment(postContent)

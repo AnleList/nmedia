@@ -19,7 +19,6 @@ import ru.netology.nmedia.view_models.PostViewModel
 
 class PostEditContentFragment : Fragment() {
 
-//    private val initialContent by lazy {
         private val args by navArgs<PostEditContentFragmentArgs>()
         private val viewModel by activityViewModels<PostViewModel>()
 

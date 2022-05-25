@@ -37,15 +37,7 @@ class PostViewingFragment : Fragment() {
     ) = PostViewingFragmentBinding.inflate(
         layoutInflater, container, false
     ).also { binding ->
-//
-//        setFragmentResultListener(
-//            requestKey = PostEditContentFragment.REQUEST_KEY
-//        ) { requestKey, bundle ->
-//            if (requestKey != PostEditContentFragment.REQUEST_KEY) return@setFragmentResultListener
-//            val newPostContent = bundle.getString(PostEditContentFragment.RESULT_KEY
-//            ) ?: return@setFragmentResultListener
-//            viewModel.onSaveClicked(newPostContent)
-//        }
+
         var postToViewing: Post = args.postToViewing
 
         viewModel.data.observe(viewLifecycleOwner) {posts ->
@@ -93,6 +85,7 @@ class PostViewingFragment : Fragment() {
                         when (menuItem.itemId) {
                             R.id.removeItem -> {
                                 viewModel.onRemoveClicked(postToViewing)
+                                findNavController().popBackStack()
                                 true
                             }
                             R.id.editItem -> {

@@ -43,8 +43,42 @@ class PostRepositoryImpl(
             sharedByMe = false,
             shared = 999997,
         )
-        if(data.value?.isEmpty() == true || data.value == null) {
+        val postSkillbox = Post(
+            id = 2L,
+            author = "Skillbox. Образовательная платформа",
+            textContent = "Skillbox — образовательная платформа, которая объединяет ведущих экспертов и практиков рынка, методистов и продюсеров образовательного контента.\n" +
+                    "\n" +
+                    "Skillbox лидер сегмента дополнительного профессионального онлайн-образования согласно данным исследования “Интерфакс Академии” в 2020 году, лидер рейтинга РБК EdTech-компаний за второй квартал 2020 года, победитель премии Рунета в номинациях “Образование и кадры” (2018, 2020) и “Технологии и инновации” (2019).\n" +
+                    "https://vk.cc/9OuvQO\n" +
+                    "8 (800) 500-05-22\n" +
+                    "Обучающие курсы\n" +
+                    "Ленинский проспект, дом 6, строение 20, Москва",
+            draftTextContent = null,
+            videoContent = "https://youtu.be/Q0KL76IK4_0",
+            published = "1 ноя 2021",
+            likedByMe = false,
+            likes = 99,
+            sharedByMe = false,
+            shared = 997,
+        )
+        val postAny = Post(
+            id = 1L,
+            author = "Некая образовательная организация",
+            textContent = "Тут информация об этой организации",
+            draftTextContent = null,
+            videoContent = null,
+            published = "ДД ммм ГГГГ",
+            likedByMe = false,
+            likes = 0,
+            sharedByMe = false,
+            shared = 0,
+        )
+        if(
+            data.value?.isEmpty() == true ||
+            data.value == null) {
             dao.insert(postNetology.toEntity())
+            dao.insert(postSkillbox.toEntity())
+            dao.insert(postAny.toEntity())
         }
     }
 

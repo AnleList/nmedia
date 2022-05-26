@@ -40,7 +40,14 @@ interface PostDao {
     @Query("DELETE FROM posts WHERE id = :id")
     fun removeById(id: Long)
 
-    @Query("UPDATE posts SET sharedByMe = CASE WHEN sharedByMe THEN 0 ELSE 1 END WHERE id = :id")
+    @Query(
+        """
+        UPDATE posts SET
+        sharedByMe = CASE WHEN sharedByMe THEN 0 ELSE 1 END,
+        shared = shared + 1
+        WHERE id = :id
+        """
+    )
     fun shareBiId(id: Long)
 
     @Query("SELECT COUNT(id) FROM posts LIMIT 1")

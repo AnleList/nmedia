@@ -14,5 +14,8 @@ class LikeData(
     val postId: Long,
 
     @SerializedName("postAuthor")
-    val postAuthor: String
+    val postAuthor: String,
+
+    @SerializedName("postContent")
+    val postContent: String
 )

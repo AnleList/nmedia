@@ -30,7 +30,7 @@ http://netolo.gy/fEU
     <string name="fabContentDescription">плавающая кнопка: \"добавить\"</string>
     <string name="videoViewContentDescription">видео содержимое</string>
     <string name="fabVideoContentDescription">кнопка воспроизведения</string>
-    <string name="notification_user_liked">%1$s поставил лайк посту %2$s</string>
+    <string name="notification_user_liked">%1$s опубликовал новый пост:</string>
     <string name="channel_remote_name">Уведомления с сервера</string>
     <string name="channel_remote_description">Уведомления с удалённого сервера</string>
 </resources>

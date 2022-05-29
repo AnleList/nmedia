@@ -39,7 +39,6 @@ class FCMService : FirebaseMessagingService() {
         when (action) {
             Action.Like -> handleLikeAction(data[CONTENT_KEY]  ?: return)
         }
-//        Log.d("onMessageReceived", gson.toJson(message.data))
     }
 
     override fun onNewToken(token: String) {
@@ -54,10 +53,11 @@ class FCMService : FirebaseMessagingService() {
             .setContentTitle(
                 getString(
                     R.string.notification_user_liked,
-                    likeData.userName,
                     likeData.postAuthor
                     )
             )
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText(likeData.postContent.substringBefore(".") + "."))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
         NotificationManagerCompat.from(this)

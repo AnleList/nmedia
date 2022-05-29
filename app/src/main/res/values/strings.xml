@@ -30,7 +30,7 @@ Varshavskoe shosse, 1, p. 6, 1st floor, office 105A, Moscow</string>
     <string name="fabContentDescription">floating button: \"add\"</string>
     <string name="videoViewContentDescription">video content</string>
     <string name="fabVideoContentDescription">play button</string>
-    <string name="notification_user_liked">User %1$s liked %2$s\'s post</string>
+    <string name="notification_user_liked">%1$s posted a new post:</string>
     <string name="channel_remote_name">Server notifications</string>
     <string name="channel_remote_description">Notifications from remote server</string>
 </resources>

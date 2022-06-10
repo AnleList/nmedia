@@ -113,12 +113,12 @@
             style="@style/Widget.AppTheme.LikeCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
+            android:layout_marginBottom="8dp"
             android:button="@drawable/heart_selector"
             android:contentDescription="@string/likes"
-            tools:text="100K"
-            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="100K" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/share"
